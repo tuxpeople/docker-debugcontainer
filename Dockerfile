@@ -4,4 +4,4 @@ MAINTAINER Thomas Deutsch <thomas@tuxpeople.org>
 
 RUN apk add --update curl && rm -rf /var/cache/apk/*
 
-ENTRYPOINT [ "http" ]
+ENTRYPOINT [ "/bin/sh" ]
