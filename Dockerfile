@@ -37,4 +37,4 @@ RUN apk add --update \
     && \
     rm -rf /var/cache/apk/*
 
-ENTRYPOINT [ "/bin/sh" ]
+ENTRYPOINT [ "bash" ]
