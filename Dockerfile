@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM infoblox/dnstools
 
 MAINTAINER Thomas Deutsch <thomas@tuxpeople.org>
 
