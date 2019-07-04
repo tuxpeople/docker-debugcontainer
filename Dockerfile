@@ -41,6 +41,8 @@ RUN apk add --update \
     && \
     rm -rf /var/cache/apk/* \
     && \
+    pip install --upgrade pip \
+    && \
     pip install pymssql \
     && \
     pip install pyobdc
