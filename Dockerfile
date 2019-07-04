@@ -27,6 +27,9 @@ RUN apk add --update \
       htop \
       mc \
       # Development tools
+      g++ \
+      gcc \
+      unixodbc-dev \
       vim \
       elinks \
       tmux \
@@ -35,6 +38,10 @@ RUN apk add --update \
       mysql-client \
       ca-certificates \
     && \
-    rm -rf /var/cache/apk/*
+    rm -rf /var/cache/apk/* \
+    && \
+    pip install pymssql \
+    && \
+    pip install pyobdc
 
 ENTRYPOINT [ "bash" ]
