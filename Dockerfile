@@ -29,6 +29,7 @@ RUN apk add --update \
       # Development tools
       g++ \
       gcc \
+      pip \
       unixodbc-dev \
       vim \
       elinks \
