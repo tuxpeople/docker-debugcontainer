@@ -47,6 +47,11 @@ RUN apk add --update \
     && \
     pip3 install pymssql \
     && \
-    pip3 install pyobdc
+    pip3 install pyobdc \
+    && \
+    rm -rf /var/cache/* \
+    && \
+    rm -rf /root/.cache/*
+
 
 ENTRYPOINT [ "bash" ]
