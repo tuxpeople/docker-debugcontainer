@@ -40,20 +40,13 @@ RUN apk add --update \
       ca-certificates \
       python3-dev \
       alpine-sdk \
-    && \
-    rm -rf /var/cache/apk/* \
-    && \
-    pip3 install --upgrade pip \
-    && \
-    pip3 install --upgrade Cython
-    && \
-    pip3 install pymssql \
-    && \
-    pip3 install pyobdc \
-    && \
-    rm -rf /var/cache/* \
-    && \
-    rm -rf /root/.cache/*
+    && rm -rf /var/cache/apk/* \
+    && pip3 install --upgrade pip \
+    && pip3 install --upgrade Cython \
+    && pip3 install pymssql \
+    && pip3 install pyobdc \
+    && rm -rf /var/cache/* \
+    && rm -rf /root/.cache/*
 
 
 ENTRYPOINT [ "bash" ]
