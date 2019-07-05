@@ -38,7 +38,8 @@ RUN apk add --update \
       tig \
       mysql-client \
       ca-certificates \
-      cython3 \
+      python3-dev \
+      alpine-sdk \
     && \
     rm -rf /var/cache/apk/* \
     && \
