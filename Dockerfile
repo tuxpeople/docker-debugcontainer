@@ -29,7 +29,7 @@ RUN apk add --update \
       # Development tools
       g++ \
       gcc \
-      py-pip \
+      python3 \
       unixodbc-dev \
       vim \
       elinks \
@@ -43,10 +43,10 @@ RUN apk add --update \
     && \
     rm -rf /var/cache/apk/* \
     && \
-    pip install --upgrade pip \
+    pip3 install --upgrade pip \
     && \
-    pip install pymssql \
+    pip3 install pymssql \
     && \
-    pip install pyobdc
+    pip3 install pyobdc
 
 ENTRYPOINT [ "bash" ]
