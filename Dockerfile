@@ -27,10 +27,6 @@ RUN apk add --update \
       htop \
       mc \
       # Development tools
-      g++ \
-      gcc \
-      python3 \
-      unixodbc-dev \
       vim \
       elinks \
       tmux \
@@ -38,16 +34,7 @@ RUN apk add --update \
       tig \
       mysql-client \
       ca-certificates \
-      python3-dev \
-      alpine-sdk \
-    && rm -rf /var/cache/apk/* \
-    && pip3 install --upgrade pip \
-    && pip3 install --upgrade Cython \
-    && pip3 install --upgrade py3-setuptools \
-    && pip3 install pymssql \
-    && pip3 install pyobdc \
-    && rm -rf /var/cache/* \
-    && rm -rf /root/.cache/*
-
+    && \
+    rm -rf /var/cache/apk/*
 
 ENTRYPOINT [ "bash" ]
