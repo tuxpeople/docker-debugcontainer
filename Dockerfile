@@ -45,6 +45,8 @@ RUN apk add --update \
     && \
     pip3 install --upgrade pip \
     && \
+    pip3 install --upgrade Cython
+    && \
     pip3 install pymssql \
     && \
     pip3 install pyobdc \
