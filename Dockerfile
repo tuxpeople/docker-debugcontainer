@@ -38,6 +38,7 @@ RUN apk add --update \
       tig \
       mysql-client \
       ca-certificates \
+      cython3 \
     && \
     rm -rf /var/cache/apk/* \
     && \
