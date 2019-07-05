@@ -43,6 +43,7 @@ RUN apk add --update \
     && rm -rf /var/cache/apk/* \
     && pip3 install --upgrade pip \
     && pip3 install --upgrade Cython \
+    && pip3 install --upgrade py3-setuptools \
     && pip3 install pymssql \
     && pip3 install pyobdc \
     && rm -rf /var/cache/* \
