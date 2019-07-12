@@ -40,7 +40,7 @@ RUN apk add --update \
       ca-certificates \
       python3-dev \
       alpine-sdk \
-      freetds \
+      freetds-dev \
     && rm -rf /var/cache/apk/* \
     && pip3 install --upgrade pip \
     && pip3 install --upgrade Cython --install-option="--no-cython-compile" \
