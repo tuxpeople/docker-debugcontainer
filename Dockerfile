@@ -40,11 +40,10 @@ RUN apk add --update \
       ca-certificates \
       python3-dev \
       alpine-sdk \
-      py3-setuptools \
     && rm -rf /var/cache/apk/* \
     && pip3 install --upgrade pip \
     && pip3 install --upgrade Cython --install-option="--no-cython-compile" \
-#    && pip3 install --upgrade py3-setuptools \
+    && pip3 install --upgrade setuptools \
     && pip3 install mssql-cli \
 #    && pip3 install pymssql \
 #    && pip3 install pyobdc \
