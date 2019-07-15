@@ -46,8 +46,6 @@ RUN apk add --update \
     && pip3 install --upgrade Cython --install-option="--no-cython-compile" \
     && pip3 install --upgrade setuptools \
     && pip3 install mssql-cli \
-#    && pip3 install pymssql \
-#    && pip3 install pyobdc \
     && rm -rf /var/cache/* \
     && rm -rf /root/.cache/*
 
