@@ -1,4 +1,4 @@
-FROM docker:latest as builder
+FROM docker:dind as builder
 LABEL builder=true
 MAINTAINER Thomas Deutsch <thomas@tuxpeople.org>
 
