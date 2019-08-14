@@ -1,21 +1,13 @@
-FROM alpine:latest as builder
-LABEL builder=true
-MAINTAINER Thomas Deutsch <thomas@tuxpeople.org>
-
-RUN apk add --update g++ make git bind bind-dev openssl-dev \
-    libxml2-dev libcap-dev json-c-dev libcrypto1.0
-
-RUN git clone https://github.com/akamai/dnsperf
-RUN cd dnsperf && ./configure && make && strip dnsperf resperf
-RUN git clone https://gitlab.isc.org/isc-projects/bind9.git
-RUN cd bind9 && git checkout v9_12_1 && cd contrib/queryperf && ./configure && make && strip queryperf
+docker run --rm --entrypoint cat infoblox/dnstools /bin/dnsperf > dnsperf
+docker run --rm --entrypoint cat infoblox/dnstools /bin/resperf > resperf
+docker run --rm --entrypoint cat infoblox/dnstools /bin/queryperf > queryperf
 
 FROM alpine:latest
 ENV PS1="debugcontainer# "
 
-COPY --from=builder /dnsperf/dnsperf /bin
-COPY --from=builder /dnsperf/resperf /bin
-COPY --from=builder /bind9/contrib/queryperf /bin
+COPY dnsperf /bin
+COPY resperf /bin
+COPY queryperf /bin
 
 RUN apk add --update \
       # Basic shell stuff
