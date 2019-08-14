@@ -1,9 +1,9 @@
-FROM alpine:latest as builder
+FROM docker:latest as builder
 LABEL builder=true
 MAINTAINER Thomas Deutsch <thomas@tuxpeople.org>
 
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories
-RUN apk add --update docker openrc
+#RUN echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories
+#RUN apk add --update docker openrc
 #RUN rc-service docker start
 RUN docker run --rm --entrypoint cat infoblox/dnstools /bin/dnsperf > /bin/dnsperf
 RUN docker run --rm --entrypoint cat infoblox/dnstools /bin/resperf > /bin/resperf
