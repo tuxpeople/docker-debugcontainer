@@ -1,13 +1,20 @@
-docker run --rm --entrypoint cat infoblox/dnstools /bin/dnsperf > dnsperf
-docker run --rm --entrypoint cat infoblox/dnstools /bin/resperf > resperf
-docker run --rm --entrypoint cat infoblox/dnstools /bin/queryperf > queryperf
+FROM alpine:latest as builder
+LABEL builder=true
+MAINTAINER Thomas Deutsch <thomas@tuxpeople.org>
+
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories
+RUN apk add --update docker
+      
+docker run --rm --entrypoint cat infoblox/dnstools /bin/dnsperf > /bin/dnsperf
+docker run --rm --entrypoint cat infoblox/dnstools /bin/resperf > /bin/resperf
+docker run --rm --entrypoint cat infoblox/dnstools /bin/queryperf > /bin/queryperf
 
 FROM alpine:latest
 ENV PS1="debugcontainer# "
 
-COPY dnsperf /bin
-COPY resperf /bin
-COPY queryperf /bin
+COPY --from=builder /bin/dnsperf /bin
+COPY --from=builder /bin/resperf /bin
+COPY --from=builder /bin/queryperf /bin
 
 RUN apk add --update \
       # Basic shell stuff
