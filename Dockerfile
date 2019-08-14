@@ -4,7 +4,7 @@ MAINTAINER Thomas Deutsch <thomas@tuxpeople.org>
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories
 RUN apk add --update docker
-      
+RUN service docker start
 RUN docker run --rm --entrypoint cat infoblox/dnstools /bin/dnsperf > /bin/dnsperf
 RUN docker run --rm --entrypoint cat infoblox/dnstools /bin/resperf > /bin/resperf
 RUN docker run --rm --entrypoint cat infoblox/dnstools /bin/queryperf > /bin/queryperf
