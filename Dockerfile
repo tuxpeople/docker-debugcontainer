@@ -1,20 +1,5 @@
-FROM docker:dind as builder
-LABEL builder=true
-MAINTAINER Thomas Deutsch <thomas@tuxpeople.org>
-
-#RUN echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories
-#RUN apk add --update docker openrc
-RUN service docker start
-RUN docker run --rm --entrypoint cat infoblox/dnstools /bin/dnsperf > /bin/dnsperf
-RUN docker run --rm --entrypoint cat infoblox/dnstools /bin/resperf > /bin/resperf
-RUN docker run --rm --entrypoint cat infoblox/dnstools /bin/queryperf > /bin/queryperf
-
 FROM alpine:latest
 ENV PS1="debugcontainer# "
-
-COPY --from=builder /bin/dnsperf /bin
-COPY --from=builder /bin/resperf /bin
-COPY --from=builder /bin/queryperf /bin
 
 RUN apk add --update \
       # Basic shell stuff
@@ -64,7 +49,11 @@ RUN apk add --update \
     && pip3 install --upgrade setuptools \
     && pip3 install mssql-cli \
     && rm -rf /var/cache/* \
-    && rm -rf /root/.cache/*
+    && rm -rf /root/.cache/* \
+    && wget https://www.dropbox.com/s/7pvxx1vfgqczyky/queryperf?dl=1 -o /bin/queryperf \
+    && wget https://www.dropbox.com/s/8eoopsp7luxmlwa/resperf?dl=1 -o /bin/resperf \
+    && wget https://www.dropbox.com/s/v9gd0xuytm7vset/dnsperf?dl=1 -o /bin/dnsperf \
+    && chmod +x /bin/*perf
 
 
 ENTRYPOINT [ "bash" ]
