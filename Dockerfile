@@ -11,6 +11,7 @@ RUN apk add --update \
       bash-completion \
       readline \
       busybox-extras \
+      sed \
       grep \
       gawk \
       tree \
