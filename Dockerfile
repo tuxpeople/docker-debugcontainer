@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 RUN useradd -u 10001 scratchuser
 
-FROM alpine:latest
+FROM infoblox/dnstools
 COPY --from=0 /etc/passwd /etc/passwd
 ENV PS1="debugcontainer# "
 
@@ -52,11 +52,7 @@ RUN apk add --update \
     && pip3 install --upgrade setuptools \
     && pip3 install mssql-cli \
     && rm -rf /var/cache/* \
-    && rm -rf /root/.cache/* \
-    && wget https://www.dropbox.com/s/7pvxx1vfgqczyky/queryperf?dl=1 -o /bin/queryperf \
-    && wget https://www.dropbox.com/s/8eoopsp7luxmlwa/resperf?dl=1 -o /bin/resperf \
-    && wget https://www.dropbox.com/s/v9gd0xuytm7vset/dnsperf?dl=1 -o /bin/dnsperf \
-    && chmod +x /bin/*perf
+    && rm -rf /root/.cache/*
 
 USER scratchuser
 
