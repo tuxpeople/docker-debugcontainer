@@ -3,7 +3,7 @@ LABEL maintainer="Thomas Deutsch <thomas@tuxpeople.org>"
 
 RUN yum update -y \
 #    && yum groupinstall "minimal" -y \
-    && curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash \
+    && curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash \
     && rpm --import https://packages.microsoft.com/keys/microsoft.asc \
     && curl -o /etc/yum.repos.d/mssql-cli.repo https://packages.microsoft.com/config/rhel/7/prod.repo \
     && yum install -y \
