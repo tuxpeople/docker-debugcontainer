@@ -57,7 +57,7 @@ RUN apk add --update \
     && rm -rf /root/.cache/*
     
 RUN sed -e 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/g' -i /etc/sudoers \
-      sed -e 's/^wheel:\(.*\)/wheel:\1,adm/g' -i /etc/group
+    && sed -e 's/^wheel:\(.*\)/wheel:\1,adm/g' -i /etc/group
 
 USER adm
 
