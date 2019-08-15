@@ -1,9 +1,9 @@
 FROM infoblox/dnstools
 ENV PS1="debugcontainer# "
 
-RUN addgroup -g 1000 -S scratchuser && \
-    adduser -u 1000 -S scratchuser -G scratchuser \
-    echo "scratchuser" | passwd scratchuser --stdin
+# RUN addgroup -g 1000 -S scratchuser && \
+#     adduser -u 1000 -S scratchuser -G scratchuser \
+#     echo "scratchuser" | passwd scratchuser --stdin
 
 RUN apk add --update \
       # Basic shell stuff
