@@ -38,6 +38,7 @@ RUN yum update -y \
       p7zip \
       python \
     && yum clean all \
+    && rm -rf /var/cache/yum \
     && wget -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
     && chmod +x /bin/speedtest-cli
     
