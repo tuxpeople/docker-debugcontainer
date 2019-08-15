@@ -1,9 +1,9 @@
-FROM ubuntu:latest
-RUN useradd -u 10001 scratchuser
-
 FROM infoblox/dnstools
-COPY --from=0 /etc/passwd /etc/passwd
 ENV PS1="debugcontainer# "
+
+RUN addgroup -g 1000 -S scratchuser && \
+    adduser -u 1000 -S scratchuser -G scratchuser \
+    echo "scratchuser" | passwd scratchuser --stdin
 
 RUN apk add --update \
       # Basic shell stuff
@@ -54,6 +54,6 @@ RUN apk add --update \
     && rm -rf /var/cache/* \
     && rm -rf /root/.cache/*
 
-USER scratchuser
+USER adm
 
 ENTRYPOINT [ "bash" ]
