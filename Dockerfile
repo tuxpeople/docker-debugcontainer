@@ -35,6 +35,10 @@ RUN yum update -y \
       MariaDB-client \
       ca-certificates \
       mtr \
-    && yum clean all
+      p7zip \
+      python \
+    && yum clean all \
+    && wget -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
+    && chmod +x /bin/speedtest-cli
     
 ENTRYPOINT [ "bash" ]
