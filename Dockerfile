@@ -5,6 +5,9 @@ ENV PS1="debugcontainer# "
 #     adduser -u 1000 -S scratchuser -G scratchuser \
 #     echo "scratchuser" | passwd scratchuser --stdin
 
+RUN sed -e 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/g' -i /etc/sudoers \
+      sed -e 's/^wheel:\(.*\)/wheel:\1,adm/g' -i /etc/group
+
 RUN apk add --update \
       # Basic shell stuff
       bash \
