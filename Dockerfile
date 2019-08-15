@@ -1,4 +1,8 @@
+FROM ubuntu:latest
+RUN useradd -u 10001 scratchuser
+
 FROM alpine:latest
+COPY --from=0 /etc/passwd /etc/passwd
 ENV PS1="debugcontainer# "
 
 RUN apk add --update \
@@ -54,5 +58,6 @@ RUN apk add --update \
     && wget https://www.dropbox.com/s/v9gd0xuytm7vset/dnsperf?dl=1 -o /bin/dnsperf \
     && chmod +x /bin/*perf
 
+USER scratchuser
 
 ENTRYPOINT [ "bash" ]
