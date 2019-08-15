@@ -1,4 +1,6 @@
 FROM infoblox/dnstools
+LABEL maintainer="Thomas Deutsch <thomas@tuxpeople.org>"
+
 ENV PS1="debugcontainer# "
 
 # RUN addgroup -g 1000 -S scratchuser && \
