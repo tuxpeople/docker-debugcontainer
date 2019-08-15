@@ -28,7 +28,6 @@ RUN apk add --update \
       htop \
       mc \
       # Development tools
-      libcrypto1.0 \
       g++ \
       gcc \
       python3 \
