@@ -37,6 +37,11 @@ RUN yum update -y \
       mtr \
       p7zip \
       python \
+      dnf \
+      dnf-plugins-core \
+    && dnf copr enable @dnsoarc/dnsperf -y \
+    && yum -y remove dnf-plugins-core dnf \
+    && yum install dnsperf resperf -y \
     && yum clean all \
     && rm -rf /var/cache/yum \
     && wget -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
