@@ -1,9 +1,12 @@
+kind: pipeline
+name: default
+
 steps:
 - name: docker  
   image: plugins/docker
   settings:
-    repo: docker.eighty-three.me/tuxpeople/debugcontainer
-    registry: docker.eighty-three.me
+    repo: docker.eighty-three.me:5000/tuxpeople/debugcontainer
+    registry: docker.eighty-three.me:5000
     auto_tag: true
     username:
       from_secret: username
