@@ -4,6 +4,7 @@ steps:
   settings:
     repo: docker.eighty-three.me/tuxpeople/debugcontainer
     registry: docker.eighty-three.me
+    auto_tag: true
     username:
       from_secret: username
     password:
