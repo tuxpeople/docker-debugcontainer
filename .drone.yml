@@ -1,0 +1,10 @@
+steps:
+- name: docker  
+  image: plugins/docker
+  settings:
+    repo: docker.eighty-three.me/tuxpeople/debugcontainer
+    registry: docker.eighty-three.me
+    username:
+      from_secret: username
+    password:
+      from_secret: password
