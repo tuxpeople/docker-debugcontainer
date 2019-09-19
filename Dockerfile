@@ -49,4 +49,4 @@ RUN yum update -y \
     && chmod +x /bin/speedtest-cli \
     && export PS1="Debugcontainer: \w \\$ "
     
-ENTRYPOINT [ "sleep 99999999999" ]
+ENTRYPOINT [ exec /bin/bash -c "trap : TERM INT; sleep infinity & wait" ]
