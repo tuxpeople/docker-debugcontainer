@@ -1,4 +1,4 @@
-FROM centos:7.6
+FROM centos:7.6.1810
 LABEL maintainer="Thomas Deutsch <thomas@tuxpeople.org>"
 
 RUN yum update -y \
