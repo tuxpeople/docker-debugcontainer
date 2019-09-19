@@ -37,6 +37,7 @@ RUN yum update -y \
       mtr \
       p7zip \
       python \
+      iozone \
       dnf \
       dnf-plugins-core \
     && dnf copr enable @dnsoarc/dnsperf -y \
