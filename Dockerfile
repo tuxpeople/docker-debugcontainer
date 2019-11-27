@@ -8,7 +8,7 @@ RUN yum update -y \
     && curl -o /etc/yum.repos.d/mssql-cli.repo https://packages.microsoft.com/config/rhel/7/prod.repo \
     && yum install -y \
       epel-release \
-    && yum update \
+    && yum update -y \
     && yum install -y \
       net-tools \
       tcpdump \
