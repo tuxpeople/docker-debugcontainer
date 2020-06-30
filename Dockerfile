@@ -48,5 +48,5 @@ RUN yum update -y \
     && curl -o /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
     && chmod +x /bin/speedtest-cli \
     && export PS1="Debugcontainer: \w \\$ "
-    
+# hadolint ignore=DL3025
 CMD exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"
