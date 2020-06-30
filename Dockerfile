@@ -45,7 +45,7 @@ RUN yum update -y \
  #   && yum install dnsperf resperf -y \
     && yum clean all \
     && rm -rf /var/cache/yum \
-    && wget -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
+    && curl -o /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
     && chmod +x /bin/speedtest-cli \
     && export PS1="Debugcontainer: \w \\$ "
     
