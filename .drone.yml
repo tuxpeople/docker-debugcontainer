@@ -4,6 +4,8 @@ name: default
 steps:
 - name: hadolint
   image: hadolint/hadolint:latest-debian
+  ignored:
+    - DL4006
   commands:
     - hadolint --version
     - hadolint  Dockerfile
