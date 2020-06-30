@@ -1,6 +1,6 @@
 FROM centos:7
 LABEL maintainer="Thomas Deutsch <thomas@tuxpeople.org>"
-
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN yum update -y \
 #   && yum groupinstall "minimal" -y \
     && curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash \
