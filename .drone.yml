@@ -4,8 +4,6 @@ name: default
 steps:
 - name: hadolint
   image: hadolint/hadolint:latest-debian
-  ignored:
-    - DL3025
   commands:
     - hadolint --version
     - hadolint  Dockerfile
