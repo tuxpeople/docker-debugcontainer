@@ -1,12 +1,14 @@
 kind: pipeline
 name: default
 
-steps:
+test:
 - name: hadolint
   image: hadolint/hadolint:latest-debian
   commands:
     - hadolint --version
     - hadolint  Dockerfile
+    
+build:
 - name: docker  
   image: plugins/docker
   settings:
@@ -17,3 +19,17 @@ steps:
       from_secret: username
     password:
       from_secret: password
+
+notify:
+  image: drillster/drone-email
+  environment:
+    - DOCKER_LAUNCH_DEBUG=true
+  host: mail
+  from: drone@eighty-three.me
+  subject: >
+    [{{ build.status }}]
+    {{ repo.owner }}/{{ repo.name }}
+  template: >
+    https://git.io/vgvPz
+  when:
+    status: [ success, changed, failure ]
