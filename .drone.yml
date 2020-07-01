@@ -19,8 +19,6 @@ steps:
       from_secret: password
 - name: notify
   image: drillster/drone-email
-  environment:
-  - DOCKER_LAUNCH_DEBUG=true
   host: mail
   from: drone@eighty-three.me
   subject: >
