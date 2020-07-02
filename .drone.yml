@@ -21,6 +21,7 @@ steps:
   image: drillster/drone-email
   host: mail
   from: drone@eighty-three.me
+  recipients: [ thomas@tuxpeople.org ]
   subject: >
     [{{ build.status }}]
     {{ repo.owner }}/{{ repo.name }}
