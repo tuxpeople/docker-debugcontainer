@@ -20,6 +20,7 @@ steps:
 - name: notify
   image: drillster/drone-email
   host: mail
+  port: 25
   from: drone@eighty-three.me
   recipients: [ thomas@tuxpeople.org ]
   subject: >
