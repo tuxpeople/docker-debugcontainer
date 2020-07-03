@@ -19,14 +19,17 @@ steps:
       from_secret: password
 - name: notify
   image: drillster/drone-email
-  host: mail
-  port: 25
-  from: drone@eighty-three.me
-  recipients: [ thomas@tuxpeople.org ]
-  subject: >
-    [{{ build.status }}]
-    {{ repo.owner }}/{{ repo.name }}
-  template: >
-    https://git.io/vgvPz
+  settings:
+      recipients_only: true
+      recipients:
+        - thomas@tuxpeople.org
+      subject: >
+        [{{ build.status }}]
+        {{ repo.owner }}/{{ repo.name }}
+      host: mail
+      port: 25
+      from: drone@eighty-three.me
+      template: >
+        https://git.io/vgvPz
   when:
     status: [ success, changed, failure ]
