@@ -26,7 +26,7 @@ steps:
       subject: >
         [{{ build.status }}]
         {{ repo.owner }}/{{ repo.name }}
-      host: runtime_mail_1.runtime_services
+      host: mail
       port: 25
       from: drone@eighty-three.me
       template: >
