@@ -1,11 +1,11 @@
-FROM centos:7
+FROM centos:8
 LABEL maintainer="Thomas Deutsch <thomas@tuxpeople.org>"
 
 RUN yum update -y \
 #   && yum groupinstall "minimal" -y \
     && curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash \
     && rpm --import https://packages.microsoft.com/keys/microsoft.asc \
-    && curl -o /etc/yum.repos.d/mssql-cli.repo https://packages.microsoft.com/config/rhel/7/prod.repo \
+    && curl -o /etc/yum.repos.d/mssql-cli.repo https://packages.microsoft.com/config/rhel/8/prod.repo \
     && yum install -y \
       epel-release \
     && yum update \
@@ -13,9 +13,8 @@ RUN yum update -y \
       net-tools \
       tcpdump \
       wget \
-      mssql-cli \
+      mssql-tools \
       bash-completion \
-      bash-completion-extras \
       lsof \
       nmap \
       telnet \
@@ -28,7 +27,6 @@ RUN yum update -y \
       htop \
       mc \
       vim \
-      elinks \ 
       screen \
       tmux \
       git \
@@ -36,12 +34,12 @@ RUN yum update -y \
       ca-certificates \
       mtr \
       p7zip \
-      python \
-      dnf \
-      dnf-plugins-core \
-    && dnf copr enable @dnsoarc/dnsperf -y \
-    && yum -y remove dnf-plugins-core dnf \
-    && yum install dnsperf resperf -y \
+      python38 \
+#      iozone \
+#      dnf \
+#      dnf-plugins-core \
+#    && dnf copr enable @dnsoarc/dnsperf -y \
+#    && yum install dnsperf resperf -y \
     && yum clean all \
     && rm -rf /var/cache/yum \
     && wget -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
