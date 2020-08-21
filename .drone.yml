@@ -22,7 +22,7 @@ steps:
   settings:
       recipients_only: true
       recipients:
-        - thomas@tuxpeople.org
+        - thomas.deutsch@me.com
       subject: >
         [{{ build.status }}]
         {{ repo.owner }}/{{ repo.name }}
