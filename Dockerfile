@@ -1,4 +1,6 @@
-FROM centos:8
+#FROM centos:8
+FROM registry.access.redhat.com/ubi8/ubi
+
 LABEL maintainer="Thomas Deutsch <thomas@tuxpeople.org>"
 
 RUN yum update -y \
