@@ -8,8 +8,10 @@ RUN yum update -y \
     && curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash \
     && rpm --import https://packages.microsoft.com/keys/microsoft.asc \
     && curl -o /etc/yum.repos.d/mssql-cli.repo https://packages.microsoft.com/config/rhel/8/prod.repo \
-    && yum install -y \
-      epel-release \
+    && curl -o epel.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm \
+    && yum localinstall -y \
+      epel.rpm \
+    && rm -f epel.rpm \
     && yum update \
     && yum install -y \
       net-tools \
