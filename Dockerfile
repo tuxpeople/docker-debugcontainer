@@ -1,5 +1,6 @@
 #FROM centos:8
-FROM registry.access.redhat.com/ubi8/ubi
+#FROM registry.access.redhat.com/ubi8/ubi
+FROM registry.access.redhat.com/rhel8/support-tools
 
 LABEL maintainer="Thomas Deutsch <thomas@tuxpeople.org>"
 
