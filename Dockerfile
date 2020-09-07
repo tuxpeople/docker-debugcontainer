@@ -12,6 +12,7 @@ RUN yum update -y \
     && yum update -y \
     && yum install -y \
       bash-completion \
+      bind-libs \
       bind-utils \
       ca-certificates \
       dnsperf \
