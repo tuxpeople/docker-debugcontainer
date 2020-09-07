@@ -14,9 +14,8 @@ RUN yum update -y \
       net-tools \
       tcpdump \
       wget \
-      mssql-cli \
+      mssql-tools \
       bash-completion \
-      bash-completion-extras \
       lsof \
       nmap \
       telnet \
@@ -29,7 +28,6 @@ RUN yum update -y \
       htop \
       mc \
       vim \
-      elinks \ 
       screen \
       tmux \
       git \
@@ -37,8 +35,8 @@ RUN yum update -y \
       ca-certificates \
       mtr \
       p7zip \
-      python \
-      iozone \
+      python38 \
+      #iozone \
       unixODBC-devel \
       dnsperf \		
       resperf \	
