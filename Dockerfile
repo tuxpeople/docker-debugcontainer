@@ -15,7 +15,7 @@ RUN yum update -y \
       bind-libs \
       bind-utils \
       ca-certificates \
-      dnsperf \
+      #dnsperf \
       git \
       htop \
       #iozone \
@@ -31,7 +31,7 @@ RUN yum update -y \
       nmap \
       p7zip \
       python38 \
-      resperf \
+      #resperf \
       screen \
       socat \
       tcpdump \
