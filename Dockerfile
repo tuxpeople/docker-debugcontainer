@@ -7,7 +7,7 @@ RUN yum update -y \
     && rpm --import https://packages.microsoft.com/keys/microsoft.asc \
     && curl -o /etc/yum.repos.d/mssql-cli.repo https://packages.microsoft.com/config/rhel/7/prod.repo \
     && yum install -y \
-      epel-release \
+       epel-release \
     && yum update -y \
     && yum install -y \
       net-tools \
