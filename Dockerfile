@@ -3,21 +3,20 @@ FROM centos:8
 LABEL maintainer="Thomas Deutsch <thomas@tuxpeople.org>"
 
 RUN yum update -y \
-#   && yum groupinstall "minimal" -y \
     && curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash \
     && rpm --import https://packages.microsoft.com/keys/microsoft.asc \
-    && curl -o /etc/yum.repos.d/mssql-cli.repo https://packages.microsoft.com/config/rhel/8/prod.repo \
-    && curl -o epel.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm \
-    && yum localinstall -y \
-      epel.rpm \
-    && rm -f epel.rpm \
-    && yum update \
+    && curl -o /etc/yum.repos.d/msprod.repo https://packages.microsoft.com/config/rhel/8/prod.repo \
+    && curl -o /etc/yum.repos.d/group_dnsoarc-dnsperf-epel-8.repo https://copr.fedorainfracloud.org/coprs/g/dnsoarc/dnsperf/repo/epel-8/group_dnsoarc-dnsperf-epel-8.repo \
+    && yum install -y \
+      epel-release \
+    && yum update -y \
     && yum install -y \
       net-tools \
       tcpdump \
       wget \
-      mssql-tools \
+      mssql-cli \
       bash-completion \
+      bash-completion-extras \
       lsof \
       nmap \
       telnet \
@@ -30,6 +29,7 @@ RUN yum update -y \
       htop \
       mc \
       vim \
+      elinks \ 
       screen \
       tmux \
       git \
@@ -37,15 +37,16 @@ RUN yum update -y \
       ca-certificates \
       mtr \
       p7zip \
-      python38 \
-#      iozone \
-#      dnf \
-#      dnf-plugins-core \
-#    && dnf copr enable @dnsoarc/dnsperf -y \
-#    && yum install dnsperf resperf -y \
+      python \
+      iozone \
+      unixODBC-devel \
+      dnsperf \		
+      resperf \	
     && yum clean all \
     && rm -rf /var/cache/yum \
-    && wget -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
+    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile \
+    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc \
+    && curl -o /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
     && chmod +x /bin/speedtest-cli \
     && export PS1="Debugcontainer: \w \\$ "
     
