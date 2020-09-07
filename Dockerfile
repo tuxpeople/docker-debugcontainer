@@ -23,7 +23,7 @@ RUN yum update -y \
       lsof \
       MariaDB-client \
       mc \
-      mssql-tools \
+      #mssql-tools \
       mtr \
       nc \
       net-tools \
@@ -39,7 +39,7 @@ RUN yum update -y \
       telnet \
       tmux \
       tree \
-      unixODBC-devel \
+      #unixODBC-devel \
       vim \
       vim-enhanced \
       wget \
