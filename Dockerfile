@@ -11,41 +11,45 @@ RUN yum update -y \
       epel-release \
     && yum update -y \
     && yum install -y \
-      net-tools \
-      tcpdump \
-      wget \
-      mssql-tools \
       bash-completion \
-      lsof \
-      nmap \
-      telnet \
-      tree \
-      jq \
       bind-utils \
-      tcptraceroute \ 
-      tcpdump \
-      socat \
-      htop \
-      mc \
-      vim \
-      screen \
-      tmux \
-      git \
-      MariaDB-client \
       ca-certificates \
+      dnsperf \
+      git \
+      htop \
+      #iozone \
+      jq \
+      lsof \
+      MariaDB-client \
+      mc \
+      mssql-tools \
       mtr \
+      nc \
+      net-tools \
+      nfs-utils \
+      nmap \
       p7zip \
       python38 \
-      #iozone \
+      resperf \
+      screen \
+      socat \
+      tcpdump \
+      tcptraceroute \
+      telnet \
+      tmux \
+      tree \
       unixODBC-devel \
-      dnsperf \		
-      resperf \	
+      vim \
+      vim-enhanced \
+      wget \
+      which \
     && yum clean all \
     && rm -rf /var/cache/yum \
     && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile \
     && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc \
     && curl -o /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
     && chmod +x /bin/speedtest-cli \
+    && alternatives --set python /usr/bin/python3 \
     && export PS1="Debugcontainer: \w \\$ "
     
 ENTRYPOINT [ "bash" ]
