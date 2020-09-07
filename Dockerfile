@@ -5,7 +5,7 @@ RUN yum update -y \
 #   && yum groupinstall "minimal" -y \
     && curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash \
     && rpm --import https://packages.microsoft.com/keys/microsoft.asc \
-    && curl -o /etc/yum.repos.d/mssql-cli.repo https://packages.microsoft.com/config/rhel/7/prod.repo \
+    && curl -o /etc/yum.repos.d/msprod.repo https://packages.microsoft.com/config/rhel/8/prod.repo \
     && yum install -y \
       epel-release \
     && yum update -y \
@@ -38,6 +38,7 @@ RUN yum update -y \
       p7zip \
       python \
       iozone \
+      unixODBC-devel \
  #     dnf \		
  #     dnf-plugins-core \		
  #   && dnf copr enable @dnsoarc/dnsperf -y \		
@@ -45,6 +46,8 @@ RUN yum update -y \
  #   && yum install dnsperf resperf -y \
     && yum clean all \
     && rm -rf /var/cache/yum \
+    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile \
+    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc \
     && curl -o /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
     && chmod +x /bin/speedtest-cli \
     && export PS1="Debugcontainer: \w \\$ "
