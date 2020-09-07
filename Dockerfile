@@ -52,5 +52,5 @@ RUN yum update -y \
     && chmod +x /bin/speedtest-cli \
     && alternatives --set python /usr/bin/python3 \
     && export PS1="Debugcontainer: \w \\$ "
-    
+
 ENTRYPOINT [ "bash" ]
