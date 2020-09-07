@@ -6,6 +6,7 @@ RUN yum update -y \
     && curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash \
     && rpm --import https://packages.microsoft.com/keys/microsoft.asc \
     && curl -o /etc/yum.repos.d/msprod.repo https://packages.microsoft.com/config/rhel/8/prod.repo \
+    && curl -o /etc/yum.repos.d/group_dnsoarc-dnsperf-epel-8.repo https://copr.fedorainfracloud.org/coprs/g/dnsoarc/dnsperf/repo/epel-8/group_dnsoarc-dnsperf-epel-8.repo \
     && yum install -y \
       epel-release \
     && yum update -y \
@@ -39,11 +40,8 @@ RUN yum update -y \
       python \
       iozone \
       unixODBC-devel \
- #     dnf \		
- #     dnf-plugins-core \		
- #   && dnf copr enable @dnsoarc/dnsperf -y \		
- #   && yum -y remove dnf-plugins-core dnf \		
- #   && yum install dnsperf resperf -y \
+      dnsperf \		
+      resperf \	
     && yum clean all \
     && rm -rf /var/cache/yum \
     && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile \
