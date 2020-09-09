@@ -8,7 +8,7 @@ RUN yum update -y \
     && curl -o /etc/yum.repos.d/msprod.repo https://packages.microsoft.com/config/rhel/8/prod.repo \
     && curl -o /etc/yum.repos.d/group_dnsoarc-dnsperf-epel-8.repo https://copr.fedorainfracloud.org/coprs/g/dnsoarc/dnsperf/repo/epel-8/group_dnsoarc-dnsperf-epel-8.repo \
     && yum install -y \
-       epel-release \
+      epel-release \
     && yum update -y \
     && yum install -y \
       bash-completion \
