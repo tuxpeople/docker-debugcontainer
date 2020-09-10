@@ -54,11 +54,11 @@ jobs:
 
       - name: Log into personal Harbor registry
       # TODO: Create a PAT with `read:packages` and `write:packages` scopes and save it as an Actions secret `CR_PAT`
-        run: echo "${{ secrets.HARBOR_PASSWORD }}" | docker login https://core.harbor.app.eighty-three.me/tuxpeople/ -u "${{ secrets.HARBOR_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.HARBOR_PASSWORD }}" | docker login https://registry.eighty-three.me/library/ -u "${{ secrets.HARBOR_USERNAME }}" --password-stdin
 
       - name: Push image to personal Harbor registry
         run: |
-          IMAGE_ID=core.harbor.app.eighty-three.me/tuxpeople/$IMAGE_NAME
+          IMAGE_ID=registry.eighty-three.me/library/$IMAGE_NAME
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
