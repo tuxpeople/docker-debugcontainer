@@ -52,13 +52,13 @@ jobs:
       - name: Build image
         run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
-      - name: Log into personal Harbor registry
+      - name: Log into docker registry
       # TODO: Create a PAT with `read:packages` and `write:packages` scopes and save it as an Actions secret `CR_PAT`
-        run: echo "${{ secrets.HARBOR_PASSWORD }}" | docker login https://registry.eighty-three.me/library/ -u "${{ secrets.HARBOR_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.DOCKERPASSWORD }}" | docker login -u "${{ secrets.DOCKERUSER }}" --password-stdin
 
-      - name: Push image to personal Harbor registry
+      - name: Push image to docker registry
         run: |
-          IMAGE_ID=registry.eighty-three.me/library/$IMAGE_NAME
+          IMAGE_ID=tdeutsch/$IMAGE_NAME
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
