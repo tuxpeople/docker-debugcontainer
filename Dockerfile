@@ -38,6 +38,7 @@ RUN echo "@edge http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/reposito
 
 WORKDIR /tmp
 # Installing MSSQL-Tools
+# hadolint ignore=DL3018,DL3019
 RUN apk add --no-cache wget gnupg --virtual .build-dependencies -- && \
     # Adding custom MS repository for mssql-tools and msodbcsql
     wget https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_${MSSQL_VERSION}_amd64.apk && \
@@ -55,20 +56,22 @@ RUN apk add --no-cache wget gnupg --virtual .build-dependencies -- && \
     apk del .build-dependencies && rm -f msodbcsql*.sig mssql-tools*.apk
 
 # Installing DNSPERF_VERSION and RESPERF
+# hadolint ignore=DL3018
 RUN apk add --no-cache --virtual deps wget g++ make bind-dev openssl-dev libxml2-dev libcap-dev json-c-dev krb5-dev protobuf-c-dev fstrm-dev \
   && apk add --no-cache bind libcrypto1.1 \
-  && wget https://www.dns-oarc.net/files/dnsperf/$DNSPERF_VERSION.tar.gz \
-  && tar zxvf $DNSPERF_VERSION.tar.gz
+  && wget https://www.dns-oarc.net/files/dnsperf/${DNSPERF_VERSION}.tar.gz \
+  && tar zxvf ${DNSPERF_VERSION}.tar.gz
 
-WORKDIR $DNSPERF_VERSION
+WORKDIR ${DNSPERF_VERSION}
 
 RUN sh configure \
   && make \
   && strip ./src/dnsperf ./src/resperf \
   && make install \
   && apk del deps \
-  && rm -rf /$DNSPERF_VERSION*
+  && rm -rf /${DNSPERF_VERSION}*
 
+# hadolint ignore=DL3018
 RUN apk add --no-cache \
       bash-completion \
       bind-libs \
