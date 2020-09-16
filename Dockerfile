@@ -4,14 +4,19 @@
 #   - https://github.com/dbamaster/mssql-tools-alpine
 #   - https://github.com/ssro/dnsperf
 
-# From Alpine edge
-FROM alpine:latest
+# From Alpine 3.12
+FROM alpine:3.12
 
 # MSSQL_VERSION can be changed, by passing `--build-arg MSSQL_VERSION=<new version>` during docker build
 ARG MSSQL_VERSION=17.5.2.1-1
 ENV MSSQL_VERSION=${MSSQL_VERSION}
 
-ENV DNSPERF dnsperf-2.3.4
+# DNSPERF_VERSION can be changed, by passing `--build-arg DNSPERF_VERSION=<new version>` during docker build
+ARG DNSPERF_VERSION=2.3.4
+ENV DNSPERF_VERSION=dnsperf-${DNSPERF_VERSION}
+
+# Resolve DL4006 https://github.com/hadolint/hadolint/wiki/DL4006
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Labels
 LABEL maintainer="Thomas Deutsch <thomas@tuxpeople.org>"
@@ -33,13 +38,13 @@ RUN echo "@edge http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/reposito
 
 WORKDIR /tmp
 # Installing MSSQL-Tools
-RUN apk add --no-cache curl gnupg --virtual .build-dependencies -- && \
+RUN apk add --no-cache wget gnupg --virtual .build-dependencies -- && \
     # Adding custom MS repository for mssql-tools and msodbcsql
-    curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_${MSSQL_VERSION}_amd64.apk && \
-    curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/mssql-tools_${MSSQL_VERSION}_amd64.apk && \
+    wget https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_${MSSQL_VERSION}_amd64.apk && \
+    wget https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/mssql-tools_${MSSQL_VERSION}_amd64.apk && \
     # Verifying signature
-    curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_${MSSQL_VERSION}_amd64.sig && \
-    curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/mssql-tools_${MSSQL_VERSION}_amd64.sig && \
+    wget https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_${MSSQL_VERSION}_amd64.sig && \
+    wget https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/mssql-tools_${MSSQL_VERSION}_amd64.sig && \
     # Importing gpg key
     curl https://packages.microsoft.com/keys/microsoft.asc  | gpg --import - && \
     gpg --verify msodbcsql17_${MSSQL_VERSION}_amd64.sig msodbcsql17_${MSSQL_VERSION}_amd64.apk && \
@@ -49,20 +54,20 @@ RUN apk add --no-cache curl gnupg --virtual .build-dependencies -- && \
     # Deleting packages
     apk del .build-dependencies && rm -f msodbcsql*.sig mssql-tools*.apk
 
-# Installing DNSPERF and RESPERF
-RUN apk add --update --no-cache --virtual deps wget g++ make bind-dev openssl-dev libxml2-dev libcap-dev json-c-dev krb5-dev protobuf-c-dev fstrm-dev \
-  && apk add --update --no-cache bind libcrypto1.1 \
-  && wget https://www.dns-oarc.net/files/dnsperf/$DNSPERF.tar.gz \
-  && tar zxvf $DNSPERF.tar.gz \
-  && cd $DNSPERF \
+# Installing DNSPERF_VERSION and RESPERF
+RUN apk add --no-cache --virtual deps wget g++ make bind-dev openssl-dev libxml2-dev libcap-dev json-c-dev krb5-dev protobuf-c-dev fstrm-dev \
+  && apk add --no-cache bind libcrypto1.1 \
+  && wget https://www.dns-oarc.net/files/dnsperf/$DNSPERF_VERSION.tar.gz \
+  && tar zxvf $DNSPERF_VERSION.tar.gz \
+  && cd $DNSPERF_VERSION \
   && sh configure \
   && make \
   && strip ./src/dnsperf ./src/resperf \
   && make install \
   && apk del deps \
-  && rm -rf /$DNSPERF*
+  && rm -rf /$DNSPERF_VERSION*
 
-RUN apk add --update --no-cache \
+RUN apk add --no-cache \
       bash-completion \
       bind-libs \
       bind-tools \
@@ -90,7 +95,7 @@ RUN apk add --update --no-cache \
       vim \
       wget \
       which \
-    && curl -o /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
+    && wget /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
     && chmod +x /bin/speedtest-cli
 
 WORKDIR /
