@@ -16,7 +16,7 @@ ARG DNSPERF_VERSION=2.3.4
 ENV DNSPERF_VERSION=dnsperf-${DNSPERF_VERSION}
 
 # Resolve DL4006 https://github.com/hadolint/hadolint/wiki/DL4006
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
 # Labels
 LABEL maintainer="Thomas Deutsch <thomas@tuxpeople.org>"
