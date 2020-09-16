@@ -46,7 +46,7 @@ RUN apk add --no-cache wget gnupg --virtual .build-dependencies -- && \
     wget https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_${MSSQL_VERSION}_amd64.sig && \
     wget https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/mssql-tools_${MSSQL_VERSION}_amd64.sig && \
     # Importing gpg key
-    curl https://packages.microsoft.com/keys/microsoft.asc  | gpg --import - && \
+    wget -O - https://packages.microsoft.com/keys/microsoft.asc  | gpg --import - && \
     gpg --verify msodbcsql17_${MSSQL_VERSION}_amd64.sig msodbcsql17_${MSSQL_VERSION}_amd64.apk && \
     gpg --verify mssql-tools_${MSSQL_VERSION}_amd64.sig mssql-tools_${MSSQL_VERSION}_amd64.apk && \
     # Installing packages
