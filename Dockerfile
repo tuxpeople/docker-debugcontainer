@@ -69,7 +69,7 @@ RUN sh configure \
   && strip ./src/dnsperf ./src/resperf \
   && make install \
   && apk del deps \
-  && rm -rf /${DNSPERF_VERSION}*
+  && rm -rf /${DNSPERF_VERSION:?}*
 
 # hadolint ignore=DL3018
 RUN apk add --no-cache \
