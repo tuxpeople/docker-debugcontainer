@@ -1,11 +1,17 @@
 # Debugcontainer - custom image
-# Thanks to https://github.com/dbamaster/mssql-tools-alpine
-# From Alpine 3.11 (~5 MBs)
-FROM alpine:3.11
+# 
+# Thanks to
+#   - https://github.com/dbamaster/mssql-tools-alpine
+#   - https://github.com/ssro/dnsperf
+
+# From Alpine edge
+FROM alpine:latest
 
 # MSSQL_VERSION can be changed, by passing `--build-arg MSSQL_VERSION=<new version>` during docker build
 ARG MSSQL_VERSION=17.5.2.1-1
 ENV MSSQL_VERSION=${MSSQL_VERSION}
+
+ENV DNSPERF dnsperf-2.3.4
 
 # Labels
 LABEL maintainer="Thomas Deutsch <thomas@tuxpeople.org>"
@@ -16,12 +22,17 @@ LABEL org.label-schema.url="http://tuxpeople.org"
 
 # environment settings
 ARG TZ="Europe/Oslo"
-ENV PS1="$(whoami)@$(hostname):$(pwd)\\$ " \
+ENV PS1="$(whoami)@debugcontainer($(hostname)):$(pwd)\\$ " \
 HOME="/root" \
 TERM="xterm"
 
+# Repository pinning https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Repository_pinning
+RUN echo "@edge http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
+    echo "@edgecommunity http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
+    echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+
 WORKDIR /tmp
-# Installing system utilities
+# Installing MSSQL-Tools
 RUN apk add --no-cache curl gnupg --virtual .build-dependencies -- && \
     # Adding custom MS repository for mssql-tools and msodbcsql
     curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_${MSSQL_VERSION}_amd64.apk && \
@@ -38,36 +49,45 @@ RUN apk add --no-cache curl gnupg --virtual .build-dependencies -- && \
     # Deleting packages
     apk del .build-dependencies && rm -f msodbcsql*.sig mssql-tools*.apk
 
-RUN apk add --no-cache \
+# Installing DNSPERF and RESPERF
+RUN apk add --update --no-cache --virtual deps wget g++ make bind-dev openssl-dev libxml2-dev libcap-dev json-c-dev krb5-dev protobuf-c-dev fstrm-dev \
+  && apk add --update --no-cache bind libcrypto1.1 \
+  && wget https://www.dns-oarc.net/files/dnsperf/$DNSPERF.tar.gz \
+  && tar zxvf $DNSPERF.tar.gz \
+  && cd $DNSPERF \
+  && sh configure \
+  && make \
+  && strip ./src/dnsperf ./src/resperf \
+  && make install \
+  && apk del deps \
+  && rm -rf /$DNSPERF*
+
+RUN apk add --update --no-cache \
       bash-completion \
       bind-libs \
-      bind-utils \
+      bind-tools \
       ca-certificates \
-      dnsperf \
       git \
       htop \
-      #iozone \
+      iozone@testing \
       jq \
       lsof \
-      MariaDB-client \
+      mariadb-client \
       mc \
       mtr \
-      nc \
+      netcat-openbsd \
       net-tools \
       nfs-utils \
       nmap \
       p7zip \
-      python38 \
-      resperf \
       screen \
       socat \
       tcpdump \
       tcptraceroute \
-      telnet \
+#      telnet \
       tmux \
       tree \
       vim \
-      vim-enhanced \
       wget \
       which \
     && curl -o /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
@@ -76,4 +96,4 @@ RUN apk add --no-cache \
 WORKDIR /
 # Adding SQL Server tools to $PATH
 ENV PATH=$PATH:/opt/mssql-tools/bin:/bin/
-CMD ["/bin/sh"]
+CMD ["/bin/bash"]
