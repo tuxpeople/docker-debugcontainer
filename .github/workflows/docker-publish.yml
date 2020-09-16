@@ -6,6 +6,7 @@ on:
     branches:
       - master
       - devel
+      - alpine
 
     # Publish `v1.2.3` tags as releases.
     tags:
