@@ -58,9 +58,11 @@ RUN apk add --no-cache wget gnupg --virtual .build-dependencies -- && \
 RUN apk add --no-cache --virtual deps wget g++ make bind-dev openssl-dev libxml2-dev libcap-dev json-c-dev krb5-dev protobuf-c-dev fstrm-dev \
   && apk add --no-cache bind libcrypto1.1 \
   && wget https://www.dns-oarc.net/files/dnsperf/$DNSPERF_VERSION.tar.gz \
-  && tar zxvf $DNSPERF_VERSION.tar.gz \
-  && cd $DNSPERF_VERSION \
-  && sh configure \
+  && tar zxvf $DNSPERF_VERSION.tar.gz
+
+WORKDIR $DNSPERF_VERSION
+
+RUN sh configure \
   && make \
   && strip ./src/dnsperf ./src/resperf \
   && make install \
