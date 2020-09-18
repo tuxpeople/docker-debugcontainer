@@ -57,7 +57,7 @@ RUN apk add --no-cache wget gnupg --virtual .build-dependencies -- && \
 
 # Installing DNSPERF_VERSION and RESPERF
 # hadolint ignore=DL3018
-RUN apk add --no-cache --virtual deps wget g++ make bind-dev openssl-dev libxml2-dev libcap-dev json-c-dev krb5-dev protobuf-c-dev fstrm-dev \
+RUN apk add --no-cache --virtual deps wget g++ make bind-dev openssl-dev libxml2-dev libcap-dev json-c-dev krb5-dev protobuf-c-dev fstrm-dev file \
   && apk add --no-cache bind libcrypto1.1 \
   && wget https://www.dns-oarc.net/files/dnsperf/${DNSPERF_VERSION}.tar.gz \
   && tar zxvf ${DNSPERF_VERSION}.tar.gz
