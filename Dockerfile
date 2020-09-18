@@ -27,7 +27,7 @@ LABEL org.label-schema.url="http://tuxpeople.org"
 
 # environment settings
 ARG TZ="Europe/Oslo"
-ENV PS1="$(whoami)@debugcontainer($(hostname)):$(pwd)\\$ " \
+ENV PS1="\u@debugcontainer($(hostname)):\w\\$ " \
 HOME="/root" \
 TERM="xterm"
 
