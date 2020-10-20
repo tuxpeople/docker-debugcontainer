@@ -71,8 +71,11 @@ RUN sh configure \
   && apk del deps \
   && rm -rf /${DNSPERF_VERSION:?}*
 
+ADD scripts/* /scripts/
+
 # hadolint ignore=DL3018
-RUN apk upgrade --no-cache \
+RUN chmod +x /scripts/* \
+    && apk upgrade --no-cache \
     && apk add --no-cache \
       bash-completion \
       bind-libs \
