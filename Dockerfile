@@ -72,11 +72,13 @@ RUN sh configure \
   && rm -rf /${DNSPERF_VERSION:?}*
 
 # hadolint ignore=DL3018
-RUN apk add --no-cache \
+RUN apk upgrade --no-cache \
+    && apk add --no-cache \
       bash-completion \
       bind-libs \
       bind-tools \
       ca-certificates \
+      coreutils \
       git \
       htop \
       iozone@testing \
