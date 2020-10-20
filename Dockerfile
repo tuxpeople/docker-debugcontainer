@@ -113,4 +113,4 @@ RUN chmod +x /scripts/* \
 WORKDIR /
 # Adding SQL Server tools to $PATH
 ENV PATH=$PATH:/opt/mssql-tools/bin:/bin/
-CMD ["/bin/bash"]
+CMD ["/scripts/idle.sh"]
