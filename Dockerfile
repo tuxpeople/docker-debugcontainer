@@ -100,6 +100,8 @@ RUN apk add --no-cache \
       vim \
       wget \
       which \
+      fio \
+      ioping \
     && wget -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
     && chmod +x /bin/speedtest-cli
 
