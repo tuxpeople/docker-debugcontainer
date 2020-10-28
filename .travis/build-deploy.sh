@@ -90,7 +90,7 @@ function multi_arch_docker::buildx() {
 #   TAGS ............... space separated list of docker image tags to build.
 function multi_arch_docker::build_and_push_all() {
   for tag in $TAGS; do
-    multi_arch_docker::buildx -t "$DOCKER_BASE:$tag" <your-arguments-here>
+    multi_arch_docker::buildx -t "$DOCKER_BASE:$tag"# <your-arguments-here>
   done
 }
 
