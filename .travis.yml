@@ -9,7 +9,7 @@ services:
 
 before_script:
  - bash ./.travis/checkx.sh
- - bash ./.travis/run-linters.sh
+# - bash ./.travis/run-linters.sh
 
 script:
  - source ./.travis/docker-push-setup.sh
