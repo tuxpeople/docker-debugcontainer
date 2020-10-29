@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#!/bin/bash
 # (c) Artur.Klauser@computer.org
 #
 # This script installs support for building multi-architecture docker images
@@ -90,7 +89,7 @@ function multi_arch_docker::buildx() {
 #   TAGS ............... space separated list of docker image tags to build.
 function multi_arch_docker::build_and_push_all() {
   for tag in $TAGS; do
-    multi_arch_docker::buildx -t "$DOCKER_BASE:$tag"# <your-arguments-here>
+    multi_arch_docker::buildx -t "$DOCKER_BASE:$tag" # <your-arguments-here>
   done
 }
 
@@ -112,7 +111,7 @@ function multi_arch_docker::test_all() {
       docker run --rm --entrypoint /bin/sh "$image" -c 'uname -m'
 
       # Run your test on the built image.
-      docker run --rm -v "$PWD:/mnt" -w /mnt "$image" <your-arguments-here>
+      docker run --rm -v "$PWD:/mnt" -w /mnt "$image" # <your-arguments-here>
     done
   done
 }
