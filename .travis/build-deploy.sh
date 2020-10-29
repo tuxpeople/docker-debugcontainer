@@ -18,6 +18,8 @@
 # More information about Linux environment constraints can be found at:
 # https://nexus.eddiesinentropy.net/2020/01/12/Building-Multi-architecture-Docker-Images-With-Buildx/
 
+TAGS=latest
+
 function _version() {
   printf '%02d' $(echo "$1" | tr . ' ' | sed -e 's/ 0*/ /g') 2>/dev/null
 }
