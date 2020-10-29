@@ -19,6 +19,7 @@
 # https://nexus.eddiesinentropy.net/2020/01/12/Building-Multi-architecture-Docker-Images-With-Buildx/
 
 TAGS=latest
+DOCKER_BASE=tdeutsch/debugcontainer
 
 function _version() {
   printf '%02d' $(echo "$1" | tr . ' ' | sed -e 's/ 0*/ /g') 2>/dev/null
