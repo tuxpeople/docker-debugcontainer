@@ -80,7 +80,7 @@ function multi_arch_docker::buildx() {
     --platform "${DOCKER_PLATFORMS// /,}" \
     --push \
     --progress plain \
-    -f Dockerfile.multi-arch \
+    -f Dockerfile \
     "$@" \
     .
 }
@@ -124,6 +124,7 @@ function multi_arch_docker::main() {
   export DOCKER_PLATFORMS='linux/amd64'
   DOCKER_PLATFORMS+=' linux/arm64'
   DOCKER_PLATFORMS+=' linux/arm/v6'
+  DOCKER_PLATFORMS+=' linux/arm/v7'
 
   multi_arch_docker::install_docker_buildx
   multi_arch_docker::login_to_docker_hub
