@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # (c) Artur.Klauser@computer.org
 #
+# Changes by Thomas Deutsch <thomas@tuxpeople.org>
+#
 # This script installs support for building multi-architecture docker images
 # with docker buildx on CI/CD pipelines like Github Actions or Travis. It is
 # assumed that you start of with a fresh VM every time you run this and have to
