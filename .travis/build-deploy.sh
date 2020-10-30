@@ -18,6 +18,10 @@
 # More information about Linux environment constraints can be found at:
 # https://nexus.eddiesinentropy.net/2020/01/12/Building-Multi-architecture-Docker-Images-With-Buildx/
 
+echo "Tags: $TAGS"
+echo "Imagename: $DOCKER_BASE"
+
+
 function _version() {
   printf '%02d' $(echo "$1" | tr . ' ' | sed -e 's/ 0*/ /g') 2>/dev/null
 }
