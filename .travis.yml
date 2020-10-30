@@ -12,7 +12,6 @@ before_script:
  - bash ./.travis/run-linters.sh
 
 script:
- - source ./.travis/docker-push-setup.sh
  - bash ./.travis/build-deploy.sh
 
 # Set up notification options
