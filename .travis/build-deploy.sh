@@ -159,8 +159,7 @@ else
     fi
 fi
 
-DOCKER_BASE=${DOCKER_USER}/$(echo ${TRAVIS_REPO_SLUG} | cut -d'/' -f2)
-
-
+#DOCKER_BASE=${DOCKER_USER}/$(echo ${TRAVIS_REPO_SLUG} | cut -d'/' -f2)
+DOCKER_BASE="tdeutsch/debugcontainer"
 
 set -ex; multi_arch_docker::main; set +x
