@@ -7,9 +7,9 @@ language: generic
 services:
   - docker
 
-#before_script:
-# - bash ./.travis/checkx.sh
-# - bash ./.travis/run-linters.sh
+before_script:
+ - bash ./.travis/checkx.sh
+ - bash ./.travis/run-linters.sh
 
 script:
  - bash ./.travis/build-deploy.sh
