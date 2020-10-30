@@ -71,7 +71,7 @@ RUN sh configure \
   && apk del deps \
   && rm -rf /${DNSPERF_VERSION:?}*
 
-ADD scripts/* /scripts/
+COPY scripts/* /scripts/
 
 # hadolint ignore=DL3018
 RUN chmod +x /scripts/* \
