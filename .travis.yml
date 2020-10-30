@@ -12,8 +12,7 @@ services:
 # - bash ./.travis/run-linters.sh
 
 script:
- - source ./.travis/docker-push-setup.sh
- - source ./.travis/build-deploy.sh
+ - bash ./.travis/build-deploy.sh
 
 # Set up notification options
 notifications: 
