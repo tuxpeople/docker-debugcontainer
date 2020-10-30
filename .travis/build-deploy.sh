@@ -135,7 +135,9 @@ function multi_arch_docker::main() {
   fi
   multi_arch_docker::build_and_push_all
   set +x
-  multi_arch_docker::test_all
+  if [ "$SHOULD_DOCKER_PUSH" = true ]; then
+    multi_arch_docker::test_all
+  fi
 }
 
 
