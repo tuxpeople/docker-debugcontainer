@@ -73,7 +73,7 @@ RUN sh configure \
 
 COPY scripts/* /scripts/
 
-# hadolint ignore=DL3018
+# hadolint ignore=DL3017,DL3018
 RUN chmod +x /scripts/* \
     && apk upgrade --no-cache \
     && apk add --no-cache \
