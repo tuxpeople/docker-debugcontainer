@@ -124,7 +124,7 @@ function multi_arch_docker::main() {
   DOCKER_PLATFORMS+=' linux/arm/v7'
 
   multi_arch_docker::install_docker_buildx
-  multi_arch_docker::login_to_docker_hub
+#  multi_arch_docker::login_to_docker_hub
   multi_arch_docker::build_and_push_all
   set +x
   multi_arch_docker::test_all
