@@ -20,10 +20,6 @@
 # More information about Linux environment constraints can be found at:
 # https://nexus.eddiesinentropy.net/2020/01/12/Building-Multi-architecture-Docker-Images-With-Buildx/
 
-echo "Tags: $TAGS"
-echo "Imagename: $DOCKER_BASE"
-
-
 function _version() {
   printf '%02d' $(echo "$1" | tr . ' ' | sed -e 's/ 0*/ /g') 2>/dev/null
 }
@@ -79,9 +75,13 @@ function multi_arch_docker::login_to_docker_hub() {
 # Args:
 #   Optional additional arguments for 'docker buildx build'.
 function multi_arch_docker::buildx() {
+  if [ "$SHOULD_DOCKER_PUSH" = true ]; then
+    PUSHARG="--push"
+  fi
+  
   docker buildx build \
     --platform "${DOCKER_PLATFORMS// /,}" \
-    --push \
+    $PUSHARG \
     --progress plain \
     -f Dockerfile \
     "$@" \
@@ -130,10 +130,35 @@ function multi_arch_docker::main() {
   DOCKER_PLATFORMS+=' linux/arm/v7'
 
   multi_arch_docker::install_docker_buildx
-#  multi_arch_docker::login_to_docker_hub
+  if [ "$SHOULD_DOCKER_PUSH" = true ]; then
+    multi_arch_docker::login_to_docker_hub
+  fi
   multi_arch_docker::build_and_push_all
   set +x
   multi_arch_docker::test_all
 }
+
+
+
+#https://graysonkoonce.com/getting-the-current-branch-name-during-a-pull-request-in-travis-ci
+export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+
+if [ "$BRANCH" == "master" ]; then
+    echo "This commit has been merged to master so on success images will be pushed"
+    export SHOULD_DOCKER_PUSH=true
+    export TAGS=latest
+else
+    if [ "$BRANCH" == "devel" ]; then
+        export SHOULD_DOCKER_PUSH=true
+        export TAGS=$BRANCH
+    else
+    TAGS=$BRANCH
+    echo "This is branch: $BRANCH so we won't be pushing"
+    fi
+fi
+
+DOCKER_BASE=${DOCKER_USER}/$(echo ${TRAVIS_REPO_SLUG} | cut -d'/' -f2)
+
+
 
 set -ex; multi_arch_docker::main; set +x
