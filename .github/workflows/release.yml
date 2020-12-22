@@ -52,7 +52,7 @@ jobs:
           echo ::set-output name=tags::${TAGS}
           echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
       -
-        name: Linting
+        name: Hadolint
         uses: brpaz/hadolint-action@v1.3.1
         with: 
           dockerfile: Dockerfile
