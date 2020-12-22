@@ -57,7 +57,7 @@ jobs:
         run: |
           MSSQLVERSION=$(curl -s https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15 | grep "verify" | grep msodbcsql17 | awk '{ print $3}' | cut -d'_' -f2)
           DNSPERF_VERSION=$(curl -w '%{url_effective}' -L -s -S https://github.com/DNS-OARC/dnsperf/releases/latest -o /dev/null | sed -e 's|.*/||')
-          echo ::set-output name=build-args::("MSSQL_VERSION=${MSSQLVERSION} DNSPERF_VERSION=dnsperf-${DNSPERF_VERSION}")
+          echo ::set-output name=build-args::"(MSSQL_VERSION=${MSSQLVERSION} DNSPERF_VERSION=dnsperf-${DNSPERF_VERSION})"
       -
         name: Hadolint
         uses: brpaz/hadolint-action@v1.3.1
