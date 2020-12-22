@@ -52,6 +52,12 @@ jobs:
           echo ::set-output name=tags::${TAGS}
           echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
       -
+        name: Generate Buildargs
+        id: build-args
+        run: |
+          MSSQLVERSION=$(curl https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15 | grep "verify" | grep msodbcsql17 | awk '{ print $3}' | cut -d'_' -f2)
+          echo ::set-output name=build-args::"MSSQL_VERSION=${MSSQLVERSION}"
+      -
         name: Hadolint
         uses: brpaz/hadolint-action@v1.3.1
         with: 
@@ -80,8 +86,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v7,linux/arm/v6,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.prep.outputs.tags }}
-          build-args: |
-            APP_FOLDER=/go/src/github.com/${{ github.repository }}
+          build-args: ${{ steps.build-args.outputs.build-args }}
           labels: |
             org.opencontainers.image.title=${{ github.event.repository.name }}
             org.opencontainers.image.description=${{ github.event.repository.description }}
