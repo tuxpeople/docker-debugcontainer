@@ -1,5 +1,13 @@
 name: ci
 
+# This worflow needs those secrets:
+#
+# DOCKER_IMAGE = Full Name of the quay.io image (quay.io/<user>/<image>)
+# REGISTRY_USERNAME = Quay.io username
+# REGISTRY_TOKEN = Quay.io token
+# DOCKERUSER = Docker Hub username
+# DOCKERPASSWORD = Docker Hub token
+
 on:
   push:
     branches: master
