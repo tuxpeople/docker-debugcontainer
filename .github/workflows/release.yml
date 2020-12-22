@@ -56,7 +56,7 @@ jobs:
         id: build-args
         run: |
           MSSQL_VERSION=$(curl -s https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15 | grep "verify" | grep msodbcsql17 | awk '{ print $3}' | cut -d'_' -f2)
-          DNSPERF_VERSION=$(curl -w '%{url_effective}' -L -s -S https://github.com/DNS-OARC/dnsperf/releases/latest -o /dev/null | sed -e 's|.*/||')
+          DNSPERF_VERSION=$(curl -w '%{url_effective}' -L -s -S https://github.com/DNS-OARC/dnsperf/releases/latest -o /dev/null | sed -e 's|.*/||' | sed 's|v||')
           echo ::set-output name=build-arg1::"MSSQL_VERSION=${MSSQL_VERSION}"
           echo ::set-output name=build-arg2::"DNSPERF_VERSION=${DNSPERF_VERSION}"
       -
