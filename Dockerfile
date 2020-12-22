@@ -26,7 +26,7 @@ LABEL org.label-schema.description="debugcontainer image alternative with Alpine
 LABEL org.label-schema.url="http://tuxpeople.org"
 
 # environment settings
-ARG TZ="Europe/Oslo"
+ARG TZ="Europe/Zurich"
 ENV PS1="\u@debugcontainer($(hostname)):\w\\$ " \
 HOME="/root" \
 TERM="xterm"
