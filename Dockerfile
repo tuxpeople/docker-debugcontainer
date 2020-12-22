@@ -8,11 +8,13 @@
 FROM alpine:3.12
 
 # MSSQL_VERSION can be changed, by passing `--build-arg MSSQL_VERSION=<new version>` during docker build
-ARG MSSQL_VERSION=17.5.2.1-1
+# $(curl -s https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15 | grep "verify" | grep msodbcsql17 | awk '{ print $3}' | cut -d'_' -f2)
+ARG MSSQL_VERSION=17.6.1.1-1
 ENV MSSQL_VERSION=${MSSQL_VERSION}
 
 # DNSPERF_VERSION can be changed, by passing `--build-arg DNSPERF_VERSION=<new version>` during docker build
-ARG DNSPERF_VERSION=2.3.4
+# $(curl -w '%{url_effective}' -L -s -S https://github.com/DNS-OARC/dnsperf/releases/latest -o /dev/null | sed -e 's|.*/||' | sed 's|v||')
+ARG DNSPERF_VERSION=2.4.0
 ENV DNSPERF_VERSION=dnsperf-${DNSPERF_VERSION}
 
 # Resolve DL4006 https://github.com/hadolint/hadolint/wiki/DL4006
