@@ -84,13 +84,16 @@ RUN chmod +x /scripts/* \
       fio \
       ioping \
     && wget -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
-    && chmod +x /bin/speedtest-cli
+    && chmod +x /bin/speedtest-cli \
+    && mkdir /workdir \
+    && chmod 777 /workdir
 
-WORKDIR /
+WORKDIR /workdir
 
 # environment settings
 ARG TZ="Europe/Zurich"
 ENV PS1="\u@debugcontainer($(hostname)):\w\\$ " \
+HOME="/workdir" \
 TERM="xterm"
 
 # Adding SQL Server tools to $PATH
