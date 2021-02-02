@@ -94,7 +94,6 @@ WORKDIR /home/foo
 # environment settings
 ARG TZ="Europe/Zurich"
 ENV PS1="\u@debugcontainer($(hostname)):\w\\$ " \
-HOME="/home/foo" \
 TERM="xterm"
 
 # Adding SQL Server tools to $PATH
