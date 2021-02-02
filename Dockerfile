@@ -24,7 +24,7 @@ LABEL org.label-schema.url="http://tuxpeople.org"
 # environment settings
 ARG TZ="Europe/Zurich"
 ENV PS1="\u@debugcontainer($(hostname)):\w\\$ " \
-HOME="/root" \
+HOME="/" \
 TERM="xterm"
 
 # Repository pinning https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Repository_pinning
