@@ -8,8 +8,8 @@ FROM alpine:3.12
 
 # MSSQL_VERSION can be changed, by passing `--build-arg MSSQL_VERSION=<new version>` during docker build
 # $(curl -s https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15 | grep "verify" | grep msodbcsql17 | awk '{ print $3}' | cut -d'_' -f2)
-ARG MSSQL_VERSION=17.6.1.1-1
-ENV MSSQL_VERSION=${MSSQL_VERSION}
+#ARG MSSQL_VERSION=17.6.1.1-1
+#ENV MSSQL_VERSION=${MSSQL_VERSION}
 
 # Resolve DL4006 https://github.com/hadolint/hadolint/wiki/DL4006
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
@@ -32,24 +32,24 @@ RUN echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repo
     echo "@edgecommunity http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
     echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 
-WORKDIR /tmp
+#WORKDIR /tmp
 # Installing MSSQL-Tools
 # hadolint ignore=DL3018,DL3019
-RUN apk add --no-cache wget gnupg --virtual .build-dependencies -- && \
+#RUN apk add --no-cache wget gnupg --virtual .build-dependencies -- && \
     # Adding custom MS repository for mssql-tools and msodbcsql
-    wget https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_${MSSQL_VERSION}_amd64.apk && \
-    wget https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/mssql-tools_${MSSQL_VERSION}_amd64.apk && \
+#    wget https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_${MSSQL_VERSION}_amd64.apk && \
+#    wget https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/mssql-tools_${MSSQL_VERSION}_amd64.apk && \
     # Verifying signature
-    wget https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_${MSSQL_VERSION}_amd64.sig && \
-    wget https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/mssql-tools_${MSSQL_VERSION}_amd64.sig && \
+#    wget https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_${MSSQL_VERSION}_amd64.sig && \
+#    wget https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/mssql-tools_${MSSQL_VERSION}_amd64.sig && \
     # Importing gpg key
-    wget -O - https://packages.microsoft.com/keys/microsoft.asc  | gpg --import - && \
-    gpg --verify msodbcsql17_${MSSQL_VERSION}_amd64.sig msodbcsql17_${MSSQL_VERSION}_amd64.apk && \
-    gpg --verify mssql-tools_${MSSQL_VERSION}_amd64.sig mssql-tools_${MSSQL_VERSION}_amd64.apk && \
+#    wget -O - https://packages.microsoft.com/keys/microsoft.asc  | gpg --import - && \
+#    gpg --verify msodbcsql17_${MSSQL_VERSION}_amd64.sig msodbcsql17_${MSSQL_VERSION}_amd64.apk && \
+#    gpg --verify mssql-tools_${MSSQL_VERSION}_amd64.sig mssql-tools_${MSSQL_VERSION}_amd64.apk && \
     # Installing packages
-    echo y | apk add --allow-untrusted msodbcsql17_${MSSQL_VERSION}_amd64.apk mssql-tools_${MSSQL_VERSION}_amd64.apk && \
+#    echo y | apk add --allow-untrusted msodbcsql17_${MSSQL_VERSION}_amd64.apk mssql-tools_${MSSQL_VERSION}_amd64.apk && \
     # Deleting packages
-    apk del .build-dependencies && rm -f msodbcsql*.sig mssql-tools*.apk
+#    apk del .build-dependencies && rm -f msodbcsql*.sig mssql-tools*.apk
 
 COPY scripts/* /scripts/
 
