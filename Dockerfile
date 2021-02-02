@@ -86,13 +86,10 @@ RUN chmod +x /scripts/* \
     && wget -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
     && chmod +x /bin/speedtest-cli
 
-WORKDIR /
-
 # Create a group and user
-RUN addgroup -S bar && adduser -S foo -G bar
-
-# Tell docker that all future commands should run as the foo user
+RUN addgroup -S bar && adduser -S foo -G bar -s /bin/ash -D
 USER foo
+WORKDIR /home/foo
 
 # environment settings
 ARG TZ="Europe/Zurich"
