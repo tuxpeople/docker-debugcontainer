@@ -4,7 +4,6 @@
 #   - https://github.com/dbamaster/mssql-tools-alpine
 #   - https://github.com/ssro/dnsperf
 
-# From Alpine 3.12
 FROM alpine:3.12
 
 # MSSQL_VERSION can be changed, by passing `--build-arg MSSQL_VERSION=<new version>` during docker build
