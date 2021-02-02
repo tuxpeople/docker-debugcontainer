@@ -86,10 +86,7 @@ RUN chmod +x /scripts/* \
     && wget -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
     && chmod +x /bin/speedtest-cli
 
-# Create a group and user
-RUN addgroup -S bar && adduser -S foo -G bar -s /bin/ash -D
-USER foo
-WORKDIR /home/foo
+WORKDIR /
 
 # environment settings
 ARG TZ="Europe/Zurich"
