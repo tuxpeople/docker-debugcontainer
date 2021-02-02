@@ -12,11 +12,6 @@ FROM alpine:3.12
 ARG MSSQL_VERSION=17.6.1.1-1
 ENV MSSQL_VERSION=${MSSQL_VERSION}
 
-# DNSPERF_VERSION can be changed, by passing `--build-arg DNSPERF_VERSION=<new version>` during docker build
-# $(curl -w '%{url_effective}' -L -s -S https://github.com/DNS-OARC/dnsperf/releases/latest -o /dev/null | sed -e 's|.*/||' | sed 's|v||')
-ARG DNSPERF_VERSION=2.4.0
-ENV DNSPERF_VERSION=dnsperf-${DNSPERF_VERSION}
-
 # Resolve DL4006 https://github.com/hadolint/hadolint/wiki/DL4006
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
@@ -57,22 +52,6 @@ RUN apk add --no-cache wget gnupg --virtual .build-dependencies -- && \
     # Deleting packages
     apk del .build-dependencies && rm -f msodbcsql*.sig mssql-tools*.apk
 
-# Installing DNSPERF_VERSION and RESPERF
-# hadolint ignore=DL3018
-RUN apk add --no-cache --virtual deps wget g++ make bind-dev openssl-dev libxml2-dev libcap-dev json-c-dev krb5-dev protobuf-c-dev fstrm-dev file \
-  && apk add --no-cache bind libcrypto1.1 \
-  && wget https://www.dns-oarc.net/files/dnsperf/${DNSPERF_VERSION}.tar.gz \
-  && tar zxvf ${DNSPERF_VERSION}.tar.gz
-
-WORKDIR ${DNSPERF_VERSION}
-
-RUN sh configure \
-  && make \
-  && strip ./src/dnsperf ./src/resperf \
-  && make install \
-  && apk del deps \
-  && rm -rf /${DNSPERF_VERSION:?}*
-
 COPY scripts/* /scripts/
 
 # hadolint ignore=DL3017,DL3018
@@ -84,6 +63,7 @@ RUN chmod +x /scripts/* \
       bind-tools \
       ca-certificates \
       coreutils \
+      dnsperf@testing \
       git \
       htop \
       iozone@testing \
