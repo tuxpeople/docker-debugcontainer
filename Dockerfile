@@ -69,7 +69,7 @@ RUN chmod +x /scripts/* \
       jq \
       lsof \
       mariadb-client \
-#      mc \
+      mc \
       minio-client@testing \
       mtr \
       netcat-openbsd \
