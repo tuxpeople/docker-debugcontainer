@@ -93,6 +93,13 @@ RUN chmod +x /scripts/* \
     && chmod +x /bin/speedtest-cli
 
 WORKDIR /
+
+# Create a group and user
+RUN addgroup -S bar && adduser -S foo -G bar
+
+# Tell docker that all future commands should run as the foo user
+USER foo
+
 # Adding SQL Server tools to $PATH
 # ENV PATH=$PATH:/opt/mssql-tools/bin:/bin/
 CMD ["/scripts/idle.sh"]
