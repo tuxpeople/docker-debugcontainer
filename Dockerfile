@@ -21,12 +21,6 @@ LABEL org.label-schema.name="debugcontainer-alpine"
 LABEL org.label-schema.description="debugcontainer image alternative with Alpine"
 LABEL org.label-schema.url="http://tuxpeople.org"
 
-# environment settings
-ARG TZ="Europe/Zurich"
-ENV PS1="\u@debugcontainer($(hostname)):\w\\$ " \
-HOME="/" \
-TERM="xterm"
-
 # Repository pinning https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Repository_pinning
 RUN echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     echo "@edgecommunity http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
@@ -99,6 +93,12 @@ RUN addgroup -S bar && adduser -S foo -G bar
 
 # Tell docker that all future commands should run as the foo user
 USER foo
+
+# environment settings
+ARG TZ="Europe/Zurich"
+ENV PS1="\u@debugcontainer($(hostname)):\w\\$ " \
+HOME="/home/foo" \
+TERM="xterm"
 
 # Adding SQL Server tools to $PATH
 # ENV PATH=$PATH:/opt/mssql-tools/bin:/bin/
