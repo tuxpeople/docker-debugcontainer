@@ -91,6 +91,7 @@ RUN chmod +x /scripts/* \
       lsof \
       mariadb-client \
       mc \
+      minio-client@edge \
       mtr \
       netcat-openbsd \
       net-tools \
