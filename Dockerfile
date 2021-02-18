@@ -4,7 +4,7 @@
 #   - https://github.com/dbamaster/mssql-tools-alpine
 #   - https://github.com/ssro/dnsperf
 
-FROM alpine:3.13.1
+FROM alpine:3.13.2
 
 # MSSQL_VERSION can be changed, by passing `--build-arg MSSQL_VERSION=<new version>` during docker build
 # $(curl -s https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15 | grep "verify" | grep msodbcsql17 | awk '{ print $3}' | cut -d'_' -f2)
