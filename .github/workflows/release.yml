@@ -120,3 +120,10 @@ jobs:
               GHTAG=$(echo $i | sed "s/quay.io/docker.io/g" | sed "s/${{ env.QUAY_USER }}/${{ env.DOCKER_USER }}/g")
               skopeo copy --all --src-creds=${{ env.QUAY_USER }}:${{ secrets.REGISTRY_TOKEN }} --dest-creds=${{ env.DOCKER_USER }}:${{ secrets.DOCKERPASSWORD }} docker://${i} docker://${GHTAG}
           done
+      -
+        name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v2
+        with:
+          username: ${{ env.DOCKER_USER }}
+          password: ${{ secrets.DOCKERPASSWORD }}
+          repository: tdeutsch/debugcontaine
