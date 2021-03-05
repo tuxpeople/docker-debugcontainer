@@ -27,11 +27,12 @@ This is a image with many handy tools in it.
 ## Usage
 You can either deploy this container standalone to test stuff, or use it as a side car if you need some special features in your pod. One use case as a side car is analyse traffic with tcpdump.
 
-## Notice about Docker Hub
-Due to the new rate limits on Docker Hub, I decided to give the images a new home at quay.io. Therefore, quay.io is the prefered source to pull this image:
+```sh
+docker pull tdeutsch/debugcontainer:<tag>
+```
+
+or
 
 ```sh
 docker pull quay.io/tdeutsch/debugcontainer:<tag>
 ```
-
-Althought the CI/CD Pipeline will also update the images at Docker Hub, please consider Docker Hub as deprecated.
