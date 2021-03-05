@@ -1,5 +1,6 @@
 # Debugcontainer
 ![Github Workflow Badge](https://github.com/tuxpeople/docker-debugcontainer/actions/workflows/release.yml/badge.svg)
+![Github Last Commit Badge](https://img.shields.io/github/last-commit/tuxpeople/docker-debugcontainer)
 ![Docker Pull Badge](https://img.shields.io/docker/pulls/tdeutsch/debugcontainer)
 ![Docker Stars Badge](https://img.shields.io/docker/stars/tdeutsch/debugcontainer)
 ![Docker Size Badge](https://img.shields.io/docker/image-size/tdeutsch/debugcontainer)
