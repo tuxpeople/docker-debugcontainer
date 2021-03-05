@@ -126,4 +126,4 @@ jobs:
         with:
           username: ${{ env.DOCKER_USER }}
           password: ${{ secrets.DOCKERPASSWORD }}
-          repository: tdeutsch/debugcontaine
+          repository: tdeutsch/debugcontainer
