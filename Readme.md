@@ -1,4 +1,9 @@
 # Debugcontainer
+![Github Workflow Badge](https://github.com/tuxpeople/docker-debugcontainer/actions/workflows/release.yml/badge.svg)
+![Docker Pull Badge](https://img.shields.io/docker/pulls/tdeutsch/debugcontainer)
+![Docker Stars Badge](https://img.shields.io/docker/stars/tdeutsch/debugcontainer)
+![Docker Size Badge](https://img.shields.io/docker/image-size/tdeutsch/debugcontainer)
+
 ## Quick reference
 
 I made this container to debug container infrastructure (eg. Kubernetes). 
@@ -20,9 +25,6 @@ This is a image with many handy tools in it.
 
 ## Usage
 You can either deploy this container standalone to test stuff, or use it as a side car if you need some special features in your pod. One use case as a side car is analyse traffic with tcpdump.
-
-## Bages ;-)
-![Github Workflow Badge](https://github.com/tuxpeople/docker-debugcontainer/actions/workflows/release.yml/badge.svg)
 
 ## Notice about Docker Hub
 Due to the new rate limits on Docker Hub, I decided to give the images a new home at quay.io. Therefore, quay.io is the prefered source to pull this image:
