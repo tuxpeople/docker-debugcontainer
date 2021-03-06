@@ -14,8 +14,6 @@ This is a image with many handy tools in it.
   https://github.com/tuxpeople/docker-debugcontainer
 * **Where to file issues:**
   https://github.com/tuxpeople/docker-debugcontainer/issues
-* **Maintained by:**
-  ["tuxpeople"](https://github.com/tuxpeople)
 * **Supported architectures:**
   ```amd64```, ```armv7```, ```armv6``` and ```arm64```
 
