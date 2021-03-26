@@ -73,6 +73,7 @@ RUN chmod +x /scripts/* \
       p7zip \
       screen \
       socat \
+      sslscan@testing \
       tcpdump \
       tcptraceroute \
 #      telnet \
