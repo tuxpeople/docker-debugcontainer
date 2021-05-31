@@ -22,8 +22,7 @@ LABEL org.label-schema.description="debugcontainer image alternative with Alpine
 LABEL org.label-schema.url="http://tuxpeople.org"
 
 # Repository pinning https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Repository_pinning
-RUN sed -e 's;^#http\(.*\)/community;http\1/community;g' -i /etc/apk/repositories && \
-    echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
+RUN echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     echo "@edgecommunity http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
     echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 
@@ -85,7 +84,7 @@ RUN chmod +x /scripts/* \
       which \
       fio \
       ioping \
-      k9s \
+      k9s@edgecommunity \
       openssh-client \
     && wget -q -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
     && chmod +x /bin/speedtest-cli \
