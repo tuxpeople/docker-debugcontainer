@@ -15,7 +15,7 @@ This is a image with many handy tools in it.
 * **Where to file issues:**
   https://github.com/tuxpeople/docker-debugcontainer/issues
 * **Supported architectures:**
-  ```amd64```, ```armv7```, ```armv6``` and ```arm64```
+  ```amd64```, ```armv7``` and ```arm64```
 
 ## Image tags
 - ```latest``` always refers to the latest tagged release.
