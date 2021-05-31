@@ -84,7 +84,7 @@ RUN chmod +x /scripts/* \
       which \
       fio \
       ioping \
-    && wget -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
+    && wget -q -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
     && chmod +x /bin/speedtest-cli \
     && mkdir /workdir \
     && chmod 777 /workdir
