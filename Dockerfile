@@ -84,7 +84,7 @@ RUN chmod +x /scripts/* \
       which \
       fio \
       ioping \
-      k9s@edgecommunity \
+      k9s \
       openssh-client \
     && wget -q -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
     && chmod +x /bin/speedtest-cli \
