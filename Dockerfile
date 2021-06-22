@@ -31,6 +31,7 @@ RUN chmod +x /scripts/* \
       bind-libs \
       bind-tools \
       ca-certificates \
+      curl \
       coreutils \
       dnsperf@testing \
       git \
