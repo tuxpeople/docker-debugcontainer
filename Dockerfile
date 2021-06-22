@@ -47,6 +47,7 @@ RUN chmod +x /scripts/* \
       net-tools \
       nfs-utils \
       nmap \
+      openssl \
       p7zip \
       screen \
       socat \
