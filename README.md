@@ -20,7 +20,7 @@ This is a image with many handy tools in it.
 ## Image tags
 - ```latest``` always refers to the latest tagged release.
 - There are tags for major, minor and dotreleases (eg. ```1.0.0```, ```1.0```, ```1``` )
-- ```edge``` gets automatically built on every push to master and also via a weekly cron job
+- ```nightly``` gets automatically built a daily cron job
 
 ## Usage
 You can either deploy this container standalone to test stuff, or use it as a side car if you need some special features in your pod. One use case as a side car is analyse traffic with tcpdump.
