@@ -10,7 +10,7 @@ on:
     branches: [master, main]
     tags: 'v*.*.*'
   schedule:
-    - cron: "0 13 * * 1"
+    - cron: '3 3 * * *'
 
 env:
   PLATFORMS: "linux/amd64,linux/arm/v7,linux/arm64"     # Build for which platforms
