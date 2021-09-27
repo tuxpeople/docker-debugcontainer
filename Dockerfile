@@ -10,11 +10,7 @@ FROM alpine:3.14.2
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
 # Labels
-LABEL maintainer="Thomas Deutsch <thomas@tuxpeople.org>"
-LABEL org.label-schema.schema-version="1.0"
-LABEL org.label-schema.name="debugcontainer-alpine"
-LABEL org.label-schema.description="debugcontainer image alternative with Alpine"
-LABEL org.label-schema.url="http://tuxpeople.org"
+LABEL org.opencontainers.image.authors="Thomas Deutsch <thomas@tuxpeople.org>"
 
 # Repository pinning https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Repository_pinning
 RUN echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
