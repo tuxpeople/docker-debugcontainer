@@ -132,3 +132,4 @@ jobs:
           username: ${{ env.DOCKER_USER }}
           password: ${{ secrets.DOCKERPASSWORD }}
           repository: ${{ steps.copy_images.outputs.shortname }}
+          short-description: ${{ github.event.repository.description }}
