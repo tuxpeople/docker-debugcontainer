@@ -74,4 +74,4 @@ ENV PS1="\u@debugcontainer($(hostname)):\w\\$ " \
 HOME="/workdir" \
 TERM="xterm"
 
-CMD ["/scripts/idle.sh"]
+CMD ["/bin/sleep","inf"]
