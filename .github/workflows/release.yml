@@ -88,7 +88,7 @@ jobs:
       -
         name: Login to Quay.io
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@v1.9.0
+        uses: docker/login-action@v1.10.0
         with:
           registry: quay.io
           username: ${{ env.QUAY_USER }}
@@ -96,7 +96,7 @@ jobs:
       -
         name: Build and push
         id: docker_build
-        uses: docker/build-push-action@v2.5.0
+        uses: docker/build-push-action@v2.7.0
         with:
           context: .
           file: ./Dockerfile

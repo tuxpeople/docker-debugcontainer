@@ -4,7 +4,7 @@
 #   - https://github.com/dbamaster/mssql-tools-alpine
 #   - https://github.com/ssro/dnsperf
 
-FROM alpine:3.14.0
+FROM alpine:3.14.2
 
 # Resolve DL4006 https://github.com/hadolint/hadolint/wiki/DL4006
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
@@ -47,6 +47,7 @@ RUN chmod +x /scripts/* \
       net-tools \
       nfs-utils \
       nmap \
+      openssl \
       p7zip \
       screen \
       socat \
