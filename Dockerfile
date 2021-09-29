@@ -23,6 +23,7 @@ COPY scripts/* /scripts/
 RUN chmod +x /scripts/* \
     && apk upgrade --no-cache \
     && apk add --no-cache \
+      arping \
       bash \
       bash-completion \
       bind-libs \
