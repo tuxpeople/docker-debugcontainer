@@ -1,4 +1,4 @@
-name: ci
+name: "Release"
 
 # This worflow needs those secrets:
 #
