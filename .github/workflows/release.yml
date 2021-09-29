@@ -135,7 +135,7 @@ jobs:
         run: |
           for i in $(echo ${{ steps.prep.outputs.tags }} | sed "s/,/ /g")
           do
-              GHTAG=$(echo $i | sed "s/ghcr.io/docker.io/g" | sed "s/${{ env.QUAY_USER }}/${{ env.DOCKER_USER }}/g")
+              GHTAG=$(echo $i | sed "s/ghcr.io/docker.io/g" | sed "s/${{ github.repository_owner }}/${{ env.DOCKER_USER }}/g")
               skopeo copy --all --src-creds=${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }} --dest-creds=${{ env.DOCKER_USER }}:${{ secrets.DOCKERPASSWORD }} docker://${i} docker://${GHTAG}
           done
           echo ::set-output name=shortname::$(echo ${{ env.IMAGENAME }} | sed "s/ghcr.io\/${{ github.repository_owner }}/{{ env.DOCKER_USER }/g")
@@ -145,7 +145,7 @@ jobs:
         run: |
           for i in $(echo ${{ steps.prep.outputs.tags }} | sed "s/,/ /g")
           do
-              GHTAG=$(echo $i | sed "s/ghcr.io/quay.io/g" | sed "s/${{ env.QUAY_USER }}/${{ env.DOCKER_USER }}/g")
+              GHTAG=$(echo $i | sed "s/ghcr.io/quay.io/g" | sed "s/${{ github.repository_owner }}/${{ env.QUAY_USER }}/g")
               skopeo copy --all --src-creds=${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }} --dest-creds=${{ env.QUAY_USER }}:${{ secrets.REGISTRY_TOKEN }} docker://${i} docker://${GHTAG}
           done
       -
