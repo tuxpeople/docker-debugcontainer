@@ -138,7 +138,7 @@ jobs:
               GHTAG=$(echo $i | sed "s/ghcr.io/docker.io/g" | sed "s/${{ github.repository_owner }}/${{ env.DOCKER_USER }}/g")
               skopeo copy --all --src-creds=${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }} --dest-creds=${{ env.DOCKER_USER }}:${{ secrets.DOCKERPASSWORD }} docker://${i} docker://${GHTAG}
           done
-          echo ::set-output name=shortname::$(echo ${{ env.IMAGENAME }} | sed "s/ghcr.io\/${{ github.repository_owner }}/{{ env.DOCKER_USER }/g")
+          echo ::set-output name=shortname::$(echo ${{ env.IMAGENAME }} | sed "s/ghcr.io\/${{ github.repository_owner }}/${{ env.DOCKER_USER }/g")
       -
         name: Copy to Quay.io
         id: copy_images2
