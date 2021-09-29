@@ -16,7 +16,9 @@ on:
     - cron: '3 3 * * *'
   release:
     # Only use the types keyword to narrow down the activity types that will trigger your workflow.
-    types: [published, created, edited]
+    types:
+      - released
+      - published
 
 env:
   PLATFORMS: "linux/amd64,linux/arm/v7,linux/arm64"     # Build for which platforms
