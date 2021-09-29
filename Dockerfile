@@ -38,6 +38,8 @@ RUN chmod +x /scripts/* \
       htop \
       ioping \
       iozone@testing \
+      iperf \
+      iperf3 \
       jq \
       k9s \
       lsof \
