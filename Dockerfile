@@ -65,6 +65,7 @@ RUN chmod +x /scripts/* \
       rsync \
       screen \
       socat \
+      speedtest-cli \
       sslscan@testing \
       tcpdump \
       tcptraceroute \
@@ -74,8 +75,6 @@ RUN chmod +x /scripts/* \
       wget \
       which \
       yq \
-    && wget -q -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
-    && chmod +x /bin/speedtest-cli \
     && mkdir /workdir \
     && chmod 777 /workdir
 
