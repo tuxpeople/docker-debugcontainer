@@ -53,7 +53,6 @@ RUN chmod +x /scripts/* \
       sslscan@testing \
       tcpdump \
       tcptraceroute \
-#      telnet \
       tmux \
       tree \
       vim \
