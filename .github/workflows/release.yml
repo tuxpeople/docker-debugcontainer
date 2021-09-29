@@ -2,7 +2,7 @@ name: ci
 
 # This worflow needs those secrets:
 #
-# REGISTRY_TOKEN = Quay.io token
+# REGISTRY_TOKEN = quay.io token
 # DOCKERPASSWORD = Docker Hub token
 
 on:
@@ -14,7 +14,7 @@ on:
 
 env:
   PLATFORMS: "linux/amd64,linux/arm/v7,linux/arm64"     # Build for which platforms
-  IMAGENAME: "ghcr.io/tdeutsch/debugcontainer"                       # Name of the image
+  IMAGENAME: "ghcr.io/tuxpeople/debugcontainer"                      # Name of the image
   DEFAULT_TAG: "edge"                                                # Which tag is beeing used if we are building for master/main branch 
   QUAY_USER: "tdeutsch"                                              # Which user to use to login to quay.io
   DOCKER_USER: "tdeutsch"                                            # Which user to use to login to DockerHub
@@ -86,13 +86,21 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       -
-        name: Login to Quay.io
+        name: Login to quay.io
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v1.10.0
         with:
           registry: quay.io
           username: ${{ env.QUAY_USER }}
           password: ${{ secrets.REGISTRY_TOKEN }}
+      -
+        name: Login to GHCR
+        uses: docker/login-action@v1
+        if: github.event_name != 'pull_request'
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       -
         name: Build and push
         id: docker_build
@@ -121,10 +129,19 @@ jobs:
         run: |
           for i in $(echo ${{ steps.prep.outputs.tags }} | sed "s/,/ /g")
           do
-              GHTAG=$(echo $i | sed "s/quay.io/docker.io/g" | sed "s/${{ env.QUAY_USER }}/${{ env.DOCKER_USER }}/g")
-              skopeo copy --all --src-creds=${{ env.QUAY_USER }}:${{ secrets.REGISTRY_TOKEN }} --dest-creds=${{ env.DOCKER_USER }}:${{ secrets.DOCKERPASSWORD }} docker://${i} docker://${GHTAG}
+              GHTAG=$(echo $i | sed "s/ghcr.io/docker.io/g" | sed "s/${{ env.QUAY_USER }}/${{ env.DOCKER_USER }}/g")
+              skopeo copy --all --src-creds=${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }} --dest-creds=${{ env.DOCKER_USER }}:${{ secrets.DOCKERPASSWORD }} docker://${i} docker://${GHTAG}
           done
-          echo ::set-output name=shortname::$(echo ${{ env.IMAGENAME }} | sed "s/quay.io\///g")
+          echo ::set-output name=shortname::$(echo ${{ env.IMAGENAME }} | sed "s/ghcr.io\/${{ github.repository_owner }}/{{ env.DOCKER_USER }/g")
+      -
+        name: Copy to Quay.io
+        id: copy_images2
+        run: |
+          for i in $(echo ${{ steps.prep.outputs.tags }} | sed "s/,/ /g")
+          do
+              GHTAG=$(echo $i | sed "s/ghcr.io/quay.io/g" | sed "s/${{ env.QUAY_USER }}/${{ env.DOCKER_USER }}/g")
+              skopeo copy --all --src-creds=${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }} --dest-creds=${{ env.QUAY_USER }}:${{ secrets.REGISTRY_TOKEN }} docker://${i} docker://${GHTAG}
+          done
       -
         name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v2.4.3
