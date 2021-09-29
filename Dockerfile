@@ -57,6 +57,7 @@ RUN chmod +x /scripts/* \
       nfs-utils \
       ngrep \
       nmap \
+      openssh \
       openssh-client \
       openssl \
       p7zip \
