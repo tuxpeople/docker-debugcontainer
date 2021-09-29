@@ -10,7 +10,10 @@ on:
     - cron: '3 3 * * *'
   push:
     branches:
-      - 'releases/**'
+      - 'master'
+      - 'main'
+    tags:
+      - 'v*'
 
 env:
   PLATFORMS: "linux/amd64,linux/arm/v7,linux/arm64"     # Build for which platforms
