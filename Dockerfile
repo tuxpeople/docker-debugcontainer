@@ -35,6 +35,7 @@ RUN chmod +x /scripts/* \
       htop \
       iozone@testing \
       jq \
+      yq \
       lsof \
       mariadb-client \
       mc \
