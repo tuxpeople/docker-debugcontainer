@@ -40,6 +40,9 @@ RUN chmod +x /scripts/* \
       iozone@testing \
       iperf \
       iperf3 \
+      iproute2 \
+      ipset \
+      iptables \
       jq \
       k9s \
       lsof \
