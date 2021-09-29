@@ -6,14 +6,14 @@ name: "Build & Release"
 # DOCKERPASSWORD = Docker Hub token
 
 on:
+  schedule:
+    - cron: '3 3 * * *'
   push:
     branches:
       - master
       - main
     tags:
       - 'v*.*.*'
-  schedule:
-    - cron: '3 3 * * *'
   release:
     # Only use the types keyword to narrow down the activity types that will trigger your workflow.
     types:
