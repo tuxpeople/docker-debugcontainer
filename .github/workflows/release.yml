@@ -9,12 +9,8 @@ on:
   schedule:
     - cron: '3 3 * * *'
   push:
-    branches:
-      - master
-      - main
     tags:
       - '*'
-  release:
     types:
 
 env:
