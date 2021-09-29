@@ -29,23 +29,26 @@ RUN chmod +x /scripts/* \
       bind-libs \
       bind-tools \
       ca-certificates \
-      curl \
       coreutils \
+      curl \
       dnsperf@testing \
+      fio \
       git \
       htop \
+      ioping \
       iozone@testing \
       jq \
-      yq \
+      k9s \
       lsof \
       mariadb-client \
       mc \
       minio-client@testing \
       mtr \
-      netcat-openbsd \
       net-tools \
+      netcat-openbsd \
       nfs-utils \
       nmap \
+      openssh-client \
       openssl \
       p7zip \
       screen \
@@ -58,10 +61,7 @@ RUN chmod +x /scripts/* \
       vim \
       wget \
       which \
-      fio \
-      ioping \
-      k9s \
-      openssh-client \
+      yq \
     && wget -q -O /bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
     && chmod +x /bin/speedtest-cli \
     && mkdir /workdir \
