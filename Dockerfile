@@ -62,6 +62,7 @@ RUN chmod +x /scripts/* \
       openssl \
       p7zip \
       psmisc \
+      rsync \
       screen \
       socat \
       sslscan@testing \
