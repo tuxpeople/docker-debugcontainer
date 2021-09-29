@@ -10,8 +10,6 @@ on:
     - cron: '3 3 * * *'
   push:
     branches:
-      - 'master'
-      - 'main'
       - 'releases/**'
 
 env:
