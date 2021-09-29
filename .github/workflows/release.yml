@@ -22,7 +22,6 @@ env:
   PLATFORMS: "linux/amd64,linux/arm/v7,linux/arm64"     # Build for which platforms
   IMAGENAME: "ghcr.io/tuxpeople/debugcontainer"                      # Name of the image
   DEFAULT_TAG: "edge"                                                # Which tag is beeing used if we are building for master/main branch 
-  QUAY_USER: "tdeutsch"                                              # Which user to use to login to quay.io
   DOCKER_USER: "tdeutsch"                                            # Which user to use to login to DockerHub
 
 #####
@@ -92,14 +91,6 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       -
-        name: Login to quay.io
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v1.10.0
-        with:
-          registry: quay.io
-          username: ${{ env.QUAY_USER }}
-          password: ${{ secrets.REGISTRY_TOKEN }}
-      -
         name: Login to GHCR
         uses: docker/login-action@v1
         if: github.event_name != 'pull_request'
@@ -139,15 +130,6 @@ jobs:
               skopeo copy --all --src-creds=${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }} --dest-creds=${{ env.DOCKER_USER }}:${{ secrets.DOCKERPASSWORD }} docker://${i} docker://${GHTAG}
           done
           echo ::set-output name=shortname::$(echo ${{ env.IMAGENAME }} | sed "s/ghcr.io\///g" | sed "s/${{ github.repository_owner }}/${{ env.DOCKER_USER }}/g")
-      -
-        name: Copy to Quay.io
-        id: copy_images2
-        run: |
-          for i in $(echo ${{ steps.prep.outputs.tags }} | sed "s/,/ /g")
-          do
-              GHTAG=$(echo $i | sed "s/ghcr.io/quay.io/g" | sed "s/${{ github.repository_owner }}/${{ env.QUAY_USER }}/g")
-              skopeo copy --all --src-creds=${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }} --dest-creds=${{ env.QUAY_USER }}:${{ secrets.REGISTRY_TOKEN }} docker://${i} docker://${GHTAG}
-          done
       -
         name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v2.4.3

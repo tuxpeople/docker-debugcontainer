@@ -34,10 +34,3 @@ or
 ```sh
 docker pull ghcr.io/tuxpeople/debugcontainer:<tag>
 ```
-
-
-or
-
-```sh
-docker pull quay.io/tdeutsch/debugcontainer:<tag>
-```
