@@ -55,6 +55,7 @@ RUN chmod +x /scripts/* \
       net-tools \
       netcat-openbsd \
       nfs-utils \
+      ngrep \
       nmap \
       openssh-client \
       openssl \
