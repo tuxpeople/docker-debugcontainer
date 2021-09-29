@@ -24,9 +24,9 @@ on:
 
 env:
   PLATFORMS: "linux/amd64,linux/arm/v7,linux/arm64"     # Build for which platforms
-  IMAGENAME: "ghcr.io/tuxpeople/debugcontainer"                      # Name of the image
-  DEFAULT_TAG: "edge"                                                # Which tag is beeing used if we are building for master/main branch 
-  DOCKER_USER: "tdeutsch"                                            # Which user to use to login to DockerHub
+  IMAGENAME: "ghcr.io/tuxpeople/debugcontainer"         # Name of the image
+  VERSION: "edge"                                       # Which tag is beeing used if we are building for master/main branch 
+  DOCKER_USER: "tdeutsch"                               # Which user to use to login to DockerHub
 
 #####
 # To rebuild someone else's repo, do this:
@@ -55,7 +55,6 @@ jobs:
         name: Prepare
         id: prep
         run: |
-          VERSION=noop
           if [ "${{ github.event_name }}" = "schedule" ]; then
             VERSION=nightly
           elif [[ $GITHUB_REF == refs/tags/* ]]; then
