@@ -46,6 +46,7 @@ RUN chmod +x /scripts/* \
       jq \
       k9s \
       kmod \
+      less \
       lsof \
       mariadb-client \
       mc \
