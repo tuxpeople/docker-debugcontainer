@@ -32,6 +32,7 @@ RUN chmod +x /scripts/* \
       coreutils \
       curl \
       dnsperf@testing \
+      ethtool \
       fio \
       git \
       htop \
