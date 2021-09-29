@@ -61,6 +61,7 @@ RUN chmod +x /scripts/* \
       openssh-client \
       openssl \
       p7zip \
+      psmisc \
       screen \
       socat \
       sslscan@testing \
