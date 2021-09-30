@@ -12,8 +12,6 @@ on:
     branches:
       - 'master'
       - 'main'
-    tags:
-      - 'v*'
 
 env:
   PLATFORMS: "linux/amd64,linux/arm/v7,linux/arm64"     # Build for which platforms
@@ -36,14 +34,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
+        name: Checkout
+        uses: actions/checkout@v2.3.4
+      -
         name: Generate Build-Args
         id: build-args
         run: |
           # echo ::set-output name=build-arg1::"buildarg1"
           # echo ::set-output name=build-arg2::"buildarg2"
+      - 
+        name: Bump version and push tag if needed
+        id: tag_version
+        if: github.event_name == 'push'
+        uses: mathieudutour/github-tag-action@v5.6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: false
       -
-        name: Checkout
-        uses: actions/checkout@v2.3.4
+        name: Create a GitHub release if new version
+        uses: actions/create-release@v1
+        if: ${{ steps.tag_version.outputs.new_tag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag_version.outputs.new_tag }}
+          release_name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
       -
         name: Prepare
         id: prep
