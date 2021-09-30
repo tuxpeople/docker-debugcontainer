@@ -87,8 +87,8 @@ jobs:
             MINOR=${VERSION%.*}
             MAJOR=${MINOR%.*}
             TAGS="$TAGS,${IMAGE}:${MINOR},${IMAGE}:${MAJOR},${IMAGE}:latest"
-          elif [ "${{ github.event_name }}" = "push" ]; then
-            TAGS="$TAGS,${IMAGE}:sha-${GITHUB_SHA::8}"
+          # elif [ "${{ github.event_name }}" = "push" ]; then
+          #   TAGS="$TAGS,${IMAGE}:sha-${GITHUB_SHA::8}"
           fi
           echo ::set-output name=tags::${TAGS}
           echo ::set-output name=imagename::${IMAGENAME}
