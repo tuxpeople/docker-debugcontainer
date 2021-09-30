@@ -64,6 +64,10 @@ jobs:
         name: Prepare
         id: prep
         run: |
+          IMAGENAME=$(echo ${{ github.repository }} | sed 's/${{ github.repository_owner }}\/docker-//g')
+          IMAGEPREFIX="ghcr.io/${{ github.repository_owner }}"
+          IMAGE="${IMAGEPREFIX}/${IMAGENAME}"
+          echo $IMAGE
           if [ "${{ github.event_name }}" = "schedule" ]; then
             VERSION=nightly
           elif [[ $GITHUB_REF == refs/tags/* ]]; then
@@ -76,16 +80,17 @@ jobs:
           elif [[ $GITHUB_REF == refs/pull/* ]]; then
             VERSION=pr-${{ github.event.number }}
           fi
-          TAGS="${IMAGENAME}:${VERSION}"
+          TAGS="${IMAGE}:${VERSION}"
           if [[ $VERSION =~ ^v[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
             MINOR=${VERSION%.*}
             MAJOR=${MINOR%.*}
-            TAGS="$TAGS,${IMAGENAME}:${MINOR},${IMAGENAME}:${MAJOR},${IMAGENAME}:latest"
+            TAGS="$TAGS,${IMAGE}:${MINOR},${IMAGE}:${MAJOR},${IMAGE}:latest"
           elif [ "${{ github.event_name }}" = "push" ]; then
-            TAGS="$TAGS,${IMAGENAME}:sha-${GITHUB_SHA::8}"
+            TAGS="$TAGS,${IMAGE}:sha-${GITHUB_SHA::8}"
           fi
           echo ::set-output name=tags::${TAGS}
-          echo ::set-output name=version::${MAJOR}.${MINOR}.${PATCH}
+          echo ::set-output name=imagename::${IMAGENAME}
+          echo ::set-output name=version::${VERSION}
           echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
       -
         name: Hadolint
@@ -120,7 +125,7 @@ jobs:
             ${{ steps.build-args.outputs.build-arg1 }}
             ${{ steps.build-args.outputs.build-arg2 }}
           labels: |
-            org.opencontainers.image.title=${{ github.event.repository.name }}
+            org.opencontainers.image.title=${{ steps.prep.outputs.imagename }}
             org.opencontainers.image.description=${{ github.event.repository.description }}
             org.opencontainers.image.url=${{ github.event.repository.html_url }}
             org.opencontainers.image.source=${{ github.event.repository.clone_url }}
@@ -137,12 +142,11 @@ jobs:
               GHTAG=$(echo $i | sed "s/ghcr.io/docker.io/g" | sed "s/${{ github.repository_owner }}/${{ env.DOCKER_USER }}/g")
               skopeo copy --all --src-creds=${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }} --dest-creds=${{ env.DOCKER_USER }}:${{ secrets.DOCKERPASSWORD }} docker://${i} docker://${GHTAG}
           done
-          echo ::set-output name=shortname::$(echo ${{ env.IMAGENAME }} | sed "s/ghcr.io\///g" | sed "s/${{ github.repository_owner }}/${{ env.DOCKER_USER }}/g")
       -
         name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v2.4.3
         with:
           username: ${{ env.DOCKER_USER }}
           password: ${{ secrets.DOCKERPASSWORD }}
-          repository: ${{ steps.copy_images.outputs.shortname }}
+          repository: "${{ env.DOCKER_USER }}/${{ steps.prep.outputs.imagename }}"
           short-description: ${{ github.event.repository.description }}
