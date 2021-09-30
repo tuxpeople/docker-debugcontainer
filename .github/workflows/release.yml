@@ -77,7 +77,7 @@ jobs:
             fi
           elif [[ $GITHUB_REF == refs/pull/* ]]; then
             VERSION=pr-${{ github.event.number }}
-          elif [[ -v ${{ steps.tag_version.outputs.new_tag }} ]]; then
+          elif [[ "${{ steps.tag_version.outputs.new_tag }}" != "" ]]; then
             VERSION=${{ steps.tag_version.outputs.new_tag }}
           fi
           TAGS="${IMAGE}:${VERSION}"
