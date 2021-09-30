@@ -65,7 +65,6 @@ jobs:
           IMAGENAME=$(echo ${{ github.repository }} | sed 's/${{ github.repository_owner }}\/docker-//g')
           IMAGEPREFIX="ghcr.io/${{ github.repository_owner }}"
           IMAGE="${IMAGEPREFIX}/${IMAGENAME}"
-          echo $IMAGE
           if [ "${{ github.event_name }}" = "schedule" ]; then
             VERSION=nightly
           elif [[ $GITHUB_REF == refs/tags/* ]]; then
@@ -88,6 +87,7 @@ jobs:
           # elif [ "${{ github.event_name }}" = "push" ]; then
           #   TAGS="$TAGS,${IMAGE}:sha-${GITHUB_SHA::8}"
           fi
+          echo ${VERSION}
           echo ::set-output name=tags::${TAGS}
           echo ::set-output name=imagename::${IMAGENAME}
           echo ::set-output name=version::${VERSION}
