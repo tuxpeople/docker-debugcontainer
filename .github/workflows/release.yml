@@ -144,7 +144,7 @@ jobs:
           done
       -
         name: Docker Hub Description
-        uses: peter-evans/dockerhub-description@v3.0.0
+        uses: peter-evans/dockerhub-description@v3.1.1
         with:
           username: ${{ env.DOCKER_USER }}
           password: ${{ secrets.DOCKERPASSWORD }}
