@@ -4,7 +4,10 @@
 #   - https://github.com/dbamaster/mssql-tools-alpine
 #   - https://github.com/ssro/dnsperf
 
-FROM alpine:3.16.2
+FROM lscr.io/linuxserver/baseimage-alpine:3.16
+
+# environment settings
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
 # Resolve DL4006 https://github.com/hadolint/hadolint/wiki/DL4006
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
@@ -13,7 +16,8 @@ SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 LABEL org.opencontainers.image.authors="Thomas Deutsch <thomas@tuxpeople.org>"
 
 # Repository pinning https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Repository_pinning
-RUN echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
+RUN echo "@edge http://dl-cdn.alpinelinux.org/alpine/v3.16/main" >> /etc/apk/repositories && \
+    echo "community http://dl-cdn.alpinelinux.org/alpine/v3.16/community" >> /etc/apk/repositories && \
     echo "@edgecommunity http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
     echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 
@@ -31,7 +35,7 @@ RUN chmod +x /scripts/* \
       ca-certificates \
       coreutils \
       curl \
-      dnsperf@testing \
+      #dnsperf@testing \
       ethtool \
       fio \
       git \
@@ -66,7 +70,7 @@ RUN chmod +x /scripts/* \
       screen \
       socat \
       speedtest-cli \
-      sslscan@testing \
+      # sslscan@edgecommunity \
       tcpdump \
       tcptraceroute \
       tmux \
