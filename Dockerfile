@@ -47,9 +47,8 @@ RUN chmod +x /scripts/* \
       ipset \
       iptables \
       jq \
-      k9s \
       kmod \
-      kubectl \
+      kubectl@testing \
       less \
       lsof \
       mariadb-client \
