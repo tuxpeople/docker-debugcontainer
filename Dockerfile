@@ -36,6 +36,7 @@ RUN chmod +x /scripts/* \
       dnsperf@testing \
       ethtool \
       fio \
+      flux \
       git \
       htop \
       ioping \
@@ -48,6 +49,7 @@ RUN chmod +x /scripts/* \
       jq \
       k9s \
       kmod \
+      kubectl \
       less \
       lsof \
       mariadb-client \
