@@ -36,7 +36,6 @@ RUN chmod +x /scripts/* \
       dnsperf@testing \
       ethtool \
       fio \
-      flux \
       git \
       htop \
       ioping \
@@ -78,6 +77,7 @@ RUN chmod +x /scripts/* \
       wget \
       which \
       yq \
+    && curl -s https://fluxcd.io/install.sh | bash \
     && mkdir /workdir \
     && chmod 777 /workdir
 
