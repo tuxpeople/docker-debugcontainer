@@ -4,7 +4,7 @@
 #   - https://github.com/dbamaster/mssql-tools-alpine
 #   - https://github.com/ssro/dnsperf
 
-FROM alpine:3.17.0
+FROM alpine:3.17.1
 
 # Resolve DL4006 https://github.com/hadolint/hadolint/wiki/DL4006
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
