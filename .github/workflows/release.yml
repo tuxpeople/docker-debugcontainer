@@ -98,6 +98,13 @@ jobs:
         with: 
           dockerfile: Dockerfile
       -
+        name: Update skopeo
+        run: |
+          echo 'deb http://download.opensuse.org/repositories/home:/alvistack/xUbuntu_22.04/ /' | sudo tee /etc/apt/sources.list.d/home:alvistack.list
+          curl -fsSL https://download.opensuse.org/repositories/home:alvistack/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_alvistack.gpg > /dev/null
+          sudo apt update
+          sudo apt install skopeo
+      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2.1.0
       -
@@ -140,7 +147,7 @@ jobs:
           for i in $(echo ${{ steps.prep.outputs.tags }} | sed "s/,/ /g")
           do
               GHTAG=$(echo $i | sed "s/ghcr.io/docker.io/g" | sed "s/${{ github.repository_owner }}/${{ env.DOCKER_USER }}/g")
-              skopeo copy --all --provenance=false --src-creds=${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }} --dest-creds=${{ env.DOCKER_USER }}:${{ secrets.DOCKERPASSWORD }} docker://${i} docker://${GHTAG}
+              skopeo copy --all --src-creds=${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }} --dest-creds=${{ env.DOCKER_USER }}:${{ secrets.DOCKERPASSWORD }} docker://${i} docker://${GHTAG}
           done
       -
         name: Docker Hub Description
