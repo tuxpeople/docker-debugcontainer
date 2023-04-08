@@ -87,6 +87,7 @@ jobs:
           # elif [ "${{ github.event_name }}" = "push" ]; then
           #   TAGS="$TAGS,${IMAGE}:sha-${GITHUB_SHA::8}"
           fi
+          TAGS="$(echo TAGS | sed 's|ghcr.io/tuxpeople|docker.io/tdeutsch|g'),$TAGS"
           echo ${VERSION}
           echo ::set-output name=tags::${TAGS}
           echo ::set-output name=imagename::${IMAGENAME}
@@ -97,11 +98,6 @@ jobs:
         uses: brpaz/hadolint-action@v1.5.0
         with: 
           dockerfile: Dockerfile
-      -
-        name: Update skopeo
-        run: |
-          sudo apt update
-          sudo apt install skopeo
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2.1.0
@@ -139,15 +135,15 @@ jobs:
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.licenses=${{ github.event.repository.license.spdx_id }}
       -
-        name: Copy to Docker Hub
-        id: copy_images
-        run: |
-          for i in $(echo ${{ steps.prep.outputs.tags }} | sed "s/,/ /g")
-          do
-              GHTAG=$(echo $i | sed "s/ghcr.io/docker.io/g" | sed "s/${{ github.repository_owner }}/${{ env.DOCKER_USER }}/g")
-              skopeo copy --all --src-creds=${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }} --dest-creds=${{ env.DOCKER_USER }}:${{ secrets.DOCKERPASSWORD }} docker://${i} docker://${GHTAG}
-          done
-      -
+      #   name: Copy to Docker Hub
+      #   id: copy_images
+      #   run: |
+      #     for i in $(echo ${{ steps.prep.outputs.tags }} | sed "s/,/ /g")
+      #     do
+      #         GHTAG=$(echo $i | sed "s/ghcr.io/docker.io/g" | sed "s/${{ github.repository_owner }}/${{ env.DOCKER_USER }}/g")
+      #         skopeo copy --all --src-creds=${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }} --dest-creds=${{ env.DOCKER_USER }}:${{ secrets.DOCKERPASSWORD }} docker://${i} docker://${GHTAG}
+      #     done
+      # -
         name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v3.4.0
         with:
