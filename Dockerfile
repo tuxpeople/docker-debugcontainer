@@ -4,7 +4,7 @@
 #   - https://github.com/dbamaster/mssql-tools-alpine
 #   - https://github.com/ssro/dnsperf
 
-FROM alpine:3.17.3
+FROM alpine:edge
 
 # Resolve DL4006 https://github.com/hadolint/hadolint/wiki/DL4006
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
@@ -13,9 +13,7 @@ SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 LABEL org.opencontainers.image.authors="Thomas Deutsch <thomas@tuxpeople.org>"
 
 # Repository pinning https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Repository_pinning
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/v$(cut -d'.' -f1,2 /etc/alpine-release)/main/" > /etc/apk/repositories && \
-    echo "https://dl-cdn.alpinelinux.org/alpine/v$(cut -d'.' -f1,2 /etc/alpine-release)/community/" >> /etc/apk/repositories && \
-    echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
+RUN echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     echo "@edgecommunity http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
     echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 
@@ -23,8 +21,7 @@ COPY scripts/* /scripts/
 
 # hadolint ignore=DL3017,DL3018
 RUN chmod +x /scripts/* \
-    && apk upgrade --no-cache \
-    && apk add --no-cache \
+    && apk add --no-cache --update \
       arping \
       bash \
       bash-completion \
@@ -52,8 +49,9 @@ RUN chmod +x /scripts/* \
       lsof \
       mariadb-client \
       mc \
-      minio-client@testing \
+      minio-client \
       mtr \
+      multitail \
       net-tools \
       netcat-openbsd \
       nfs-utils \
@@ -63,6 +61,8 @@ RUN chmod +x /scripts/* \
       openssh-client \
       openssl \
       p7zip \
+      parallel \
+      perl-utils \
       psmisc \
       rsync \
       screen \
