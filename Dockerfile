@@ -80,7 +80,9 @@ RUN chmod +x /scripts/* \
       yq \
     && curl -s https://fluxcd.io/install.sh | bash \
     && mkdir /workdir \
-    && chmod 777 /workdir
+    && chmod 777 /workdir \
+    && addgroup -g 1000 abc \
+    && adduser -G abc -u 1000 abc -D
 
 WORKDIR /workdir
 
