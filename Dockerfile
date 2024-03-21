@@ -34,6 +34,7 @@ RUN chmod +x /scripts/* \
       ethtool \
       fio \
       git \
+      hdparm \
       htop \
       ioping \
       iozone@testing \
