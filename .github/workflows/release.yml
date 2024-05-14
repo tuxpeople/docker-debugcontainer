@@ -13,7 +13,7 @@ on:
       - 'main'
 
 env:
-  PLATFORMS: "linux/amd64,linux/arm/v7,linux/arm64"     # Build for which platforms
+  PLATFORMS: "linux/amd64,linux/arm64"     # Build for which platforms
   DOCKER_USER: "tdeutsch"                               # Which user to use to login to DockerHub
 
 #####
