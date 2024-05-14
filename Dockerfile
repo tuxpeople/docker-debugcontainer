@@ -79,6 +79,7 @@ RUN chmod +x /scripts/* \
       which \
       yq \
     && curl -s https://fluxcd.io/install.sh | bash \
+    && curl -L https://carvel.dev/install.sh | K14SIO_INSTALL_BIN_DIR=/usr/local/bin bash \
     && mkdir /workdir \
     && chmod 777 /workdir \
     && addgroup -g 1000 abc \
