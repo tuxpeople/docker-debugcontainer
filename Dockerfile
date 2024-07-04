@@ -65,6 +65,7 @@ RUN chmod +x /scripts/* \
       parallel \
       perl-utils \
       psmisc \
+      py3-pip \
       rsync \
       screen \
       socat \
