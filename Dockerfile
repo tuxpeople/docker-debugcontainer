@@ -19,7 +19,7 @@ RUN echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repo
 
 COPY scripts/* /scripts/
 
-# hadolint ignore=DL3017,DL3018
+# hadolint ignore=DL3017,DL3018,DL3013
 RUN chmod +x /scripts/* \
     && apk add --no-cache --update \
       arping \
