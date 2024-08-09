@@ -12,17 +12,15 @@ SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 # Labels
 LABEL org.opencontainers.image.authors="Thomas Deutsch <thomas@tuxpeople.org>"
 
-# Repository pinning https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Repository_pinning
-RUN echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
-    echo "@edgecommunity http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
-    echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-
 COPY scripts/* /scripts/
 COPY requirements.txt /requirements.txt
 
 # hadolint ignore=DL3017,DL3018,DL3013
 RUN chmod +x /scripts/* \
     && apk add --no-cache --update \
+      --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main \
+      --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
+      --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
       arping \
       bash \
       bash-completion \
@@ -31,14 +29,14 @@ RUN chmod +x /scripts/* \
       ca-certificates \
       coreutils \
       curl \
-      dnsperf@testing \
+      dnsperf \
       ethtool \
       fio \
       git \
       hdparm \
       htop \
       ioping \
-      iozone@testing \
+      iozone \
       iperf \
       iperf3 \
       iproute2 \
@@ -46,7 +44,7 @@ RUN chmod +x /scripts/* \
       iptables \
       jq \
       kmod \
-      kubectl@testing \
+      kubectl \
       less \
       lsof \
       mariadb-client \
@@ -71,7 +69,7 @@ RUN chmod +x /scripts/* \
       screen \
       socat \
       speedtest-cli \
-      sslscan@testing \
+      sslscan \
       tcpdump \
       tcptraceroute \
       tmux \
