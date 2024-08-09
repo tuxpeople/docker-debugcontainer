@@ -18,6 +18,7 @@ RUN echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repo
     echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 
 COPY scripts/* /scripts/
+COPY requirements.txt /requirements.txt
 
 # hadolint ignore=DL3017,DL3018,DL3013
 RUN chmod +x /scripts/* \
@@ -83,8 +84,9 @@ RUN chmod +x /scripts/* \
     && curl -L https://carvel.dev/install.sh | K14SIO_INSTALL_BIN_DIR=/usr/local/bin bash \
     && apk add --no-cache --virtual .build-deps musl-dev python3-dev libffi-dev openssl-dev cargo make \
     && pip install --break-system-packages --no-cache-dir --upgrade pip \
-    && pip install --break-system-packages --no-cache-dir --requirement requirements.txt \
+    && pip install --break-system-packages --no-cache-dir --requirement /requirements.txt \
     && apk del .build-deps \
+    && rm -f /requirements.txt \
     && mkdir /workdir \
     && chmod 777 /workdir \
     && addgroup -g 1000 abc \
