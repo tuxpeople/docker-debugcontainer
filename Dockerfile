@@ -29,6 +29,7 @@ RUN chmod +x /scripts/* \
       ca-certificates \
       coreutils \
       curl \
+      crane \
       dnsperf \
       ethtool \
       fio \
