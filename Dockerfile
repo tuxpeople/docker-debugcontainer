@@ -49,6 +49,7 @@ RUN chmod +x /scripts/* \
       less \
       lsof \
       mariadb-client \
+      mariadb-connector-c \
       mc \
       minio-client \
       mtr \
