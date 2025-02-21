@@ -5,6 +5,8 @@ name: "Build & Release"
 # DOCKERPASSWORD = Docker Hub token
 
 on:
+  release:
+    types: [published]
   schedule:
     - cron: '3 3 * * *'
   push:
