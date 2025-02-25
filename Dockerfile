@@ -87,6 +87,7 @@ RUN chmod +x /scripts/* \
     && pip install --break-system-packages --no-cache-dir --requirement /requirements.txt \
     && apk del .build-deps \
     && rm -f /requirements.txt \
+    && crane completion bash > /etc/bash_completion.d/crane \
     && mkdir /workdir \
     && chmod 777 /workdir \
     && addgroup -g 1000 abc \
