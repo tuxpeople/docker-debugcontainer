@@ -74,6 +74,7 @@ RUN chmod +x /scripts/* \
       sslscan \
       tcpdump \
       tcptraceroute \
+      telnet \
       tmux \
       tree \
       vim \
