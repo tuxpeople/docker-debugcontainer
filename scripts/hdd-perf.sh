@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 echo "Doing tests in $(pwd)"
 echo ""
 sleep 20

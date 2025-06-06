@@ -7,8 +7,8 @@
 
 ## Quick reference
 
-I made this container to debug container infrastructure (eg. Kubernetes). 
-This is a image with many handy tools in it.
+I made this container to debug container infrastructure (eg. Kubernetes).
+This is an image with many handy tools in it.
 
 * **Code repository:**
   https://github.com/tuxpeople/docker-debugcontainer
@@ -24,7 +24,7 @@ This is a image with many handy tools in it.
 - ```devel``` gets automatically built on every push and represents the latest version of the repo
 
 ## Usage
-You can either deploy this container standalone to test stuff, or use it as a side car if you need some special features in your pod. One use case as a side car is analyse traffic with tcpdump.
+You can either deploy this container standalone to test stuff, or use it as a sidecar if you need some special features in your pod. One use case as a sidecar is analyse traffic with tcpdump.
 
 ```sh
 docker pull tdeutsch/debugcontainer:<tag>
