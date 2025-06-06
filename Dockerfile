@@ -90,7 +90,7 @@ RUN chmod +x /scripts/* \
     && rm -f /requirements.txt \
     && crane completion bash > /etc/bash_completion.d/crane \
     && mkdir /workdir \
-    && chmod 777 /workdir \
+    && chmod 755 /workdir \
     && addgroup -g 1000 abc \
     && adduser -G abc -u 1000 abc -D
 
