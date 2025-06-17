@@ -125,6 +125,8 @@ jobs:
         name: Build and push
         id: docker_build
         uses: docker/build-push-action@v6.18.0
+        env:
+          BUILDKIT_PROGRESS: plain
         with:
           context: .
           file: ./Dockerfile
