@@ -17,6 +17,7 @@ COPY requirements.txt /requirements.txt
 
 # hadolint ignore=DL3017,DL3018,DL3013
 RUN chmod +x /scripts/* \
+  && apk --update upgrade \
   && apk add --no-cache --update \
   --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main \
   --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
@@ -93,10 +94,6 @@ RUN chmod +x /scripts/* \
   && chmod 755 /workdir \
   && addgroup -g 1000 abc \
   && adduser -G abc -u 1000 abc -D \
-  && apk --update upgrade \
-  --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main \
-  --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
-  --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
   && rm -rf /var/cache/apk/*
 
 WORKDIR /workdir
