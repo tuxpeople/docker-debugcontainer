@@ -83,6 +83,7 @@ RUN chmod +x /scripts/* \
   yq \
   && curl -s https://fluxcd.io/install.sh | bash \
   && curl -L https://carvel.dev/install.sh | K14SIO_INSTALL_BIN_DIR=/usr/local/bin bash \
+  && rm -f /usr/local/bin/kapp /usr/local/bin/kbld /usr/local/bin/kwt /usr/local/bin/vendir \
   && apk add --no-cache --virtual .build-deps musl-dev python3-dev libffi-dev openssl-dev cargo make \
   && pip install --break-system-packages --no-cache-dir --upgrade pip \
   && pip install --break-system-packages --no-cache-dir --requirement /requirements.txt \
