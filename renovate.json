@@ -2,11 +2,21 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
-  ], 
+  ],
   "packageRules": [
     {
-      "matchFileNames": ["**/**"],
+      "matchFileNames": [
+        "**/**"
+      ],
       "automerge": true
+    },
+    {
+      "description": "Automerge patch updates",
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
     }
   ]
 }
