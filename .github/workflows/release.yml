@@ -34,11 +34,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5.0.0
-      - name: Generate Build-Args
-        id: build-args
-        run: |
-          # echo "build-arg1=buildarg1" >> $GITHUB_OUTPUT
-          # echo "build-arg2=buildarg2" >> $GITHUB_OUTPUT
       - name: Bump version and push tag if needed
         id: tag_version
         if: github.event_name == 'push'
@@ -121,9 +116,6 @@ jobs:
           platforms: ${{ env.PLATFORMS }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.prep.outputs.tags }}
-          build-args: |
-            ${{ steps.build-args.outputs.build-arg1 }}
-            ${{ steps.build-args.outputs.build-arg2 }}
           labels: |
             org.opencontainers.image.title=${{ steps.prep.outputs.imagename }}
             org.opencontainers.image.description=${{ github.event.repository.description }}

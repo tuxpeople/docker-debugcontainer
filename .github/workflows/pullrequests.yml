@@ -13,11 +13,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5.0.0
-      - name: Generate Build-Args
-        id: build-args
-        run: |
-          # echo "build-arg1=buildarg1" >> $GITHUB_OUTPUT
-          # echo "build-arg2=buildarg2" >> $GITHUB_OUTPUT
       - name: Hadolint
         uses: brpaz/hadolint-action@v1.5.0
         with:
