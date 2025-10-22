@@ -37,8 +37,8 @@ jobs:
       - name: Generate Build-Args
         id: build-args
         run: |
-          # echo ::set-output name=build-arg1::"buildarg1"
-          # echo ::set-output name=build-arg2::"buildarg2"
+          # echo "build-arg1=buildarg1" >> $GITHUB_OUTPUT
+          # echo "build-arg2=buildarg2" >> $GITHUB_OUTPUT
       - name: Bump version and push tag if needed
         id: tag_version
         if: github.event_name == 'push'
@@ -86,10 +86,10 @@ jobs:
           fi
           TAGS="$(echo $TAGS | sed 's|ghcr.io/tuxpeople|docker.io/tdeutsch|g'),$TAGS"
           echo ${VERSION}
-          echo ::set-output name=tags::${TAGS}
-          echo ::set-output name=imagename::${IMAGENAME}
-          echo ::set-output name=version::${VERSION}
-          echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          echo "tags=${TAGS}" >> $GITHUB_OUTPUT
+          echo "imagename=${IMAGENAME}" >> $GITHUB_OUTPUT
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "created=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
       - name: Hadolint
         uses: brpaz/hadolint-action@v1.5.0
         with:
