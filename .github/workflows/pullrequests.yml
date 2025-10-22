@@ -1,7 +1,7 @@
 name: "Build & Test"
 
 env:
-  PLATFORMS: "linux/amd64,linux/arm/v7,linux/arm64" # Build for which platforms
+  PLATFORMS: "linux/amd64,linux/arm64" # Build for which platforms
 
 on:
   pull_request:
@@ -16,8 +16,8 @@ jobs:
       - name: Generate Build-Args
         id: build-args
         run: |
-          # echo ::set-output name=build-arg1::"buildarg1"
-          # echo ::set-output name=build-arg2::"buildarg2"
+          # echo "build-arg1=buildarg1" >> $GITHUB_OUTPUT
+          # echo "build-arg2=buildarg2" >> $GITHUB_OUTPUT
       - name: Hadolint
         uses: brpaz/hadolint-action@v1.5.0
         with:
