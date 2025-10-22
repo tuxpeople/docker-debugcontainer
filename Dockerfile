@@ -93,6 +93,7 @@ RUN chmod +x /scripts/* \
   && tar -zxf "oras_${ORAS_VERSION#v}_${OS}_${ARCH}.tar.gz" -C oras-install/ \
   && mv oras-install/oras /usr/local/bin/ \
   && rm -rf "oras_${ORAS_VERSION#v}_${OS}_${ARCH}.tar.gz" oras-install/ \
+  && oras completion bash > /etc/bash_completion.d/oras \
   && apk add --no-cache --virtual .build-deps musl-dev python3-dev libffi-dev openssl-dev cargo make \
   && pip install --break-system-packages --no-cache-dir --upgrade pip \
   && pip install --break-system-packages --no-cache-dir --requirement /requirements.txt \
