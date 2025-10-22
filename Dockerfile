@@ -110,9 +110,9 @@ RUN chmod +x /scripts/* \
 WORKDIR /workdir
 
 # environment settings
-ARG TZ="Europe/Zurich"
 ENV PS1="\u@debugcontainer($(hostname)):\w\\$ " \
   HOME="/workdir" \
-  TERM="xterm"
+  TERM="xterm" \
+  TZ="Europe/Zurich"
 
 CMD ["/bin/sleep","inf"]
