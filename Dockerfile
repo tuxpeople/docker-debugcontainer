@@ -87,7 +87,8 @@ RUN chmod +x /scripts/* \
   && rm -f /usr/local/bin/kapp /usr/local/bin/kbld /usr/local/bin/kwt /usr/local/bin/vendir \
   && OS="$(uname -s | tr A-Z a-z)" \
   && ARCH="$(uname -m | sed -e 's/x86_64/amd64/g' -e 's/aarch64/arm64/g')" \
-  && ORAS_VERSION="$(curl -s https://api.github.com/repos/oras-project/oras/releases/latest | grep -o '"tag_name": *"[^"]*"' | grep -o 'v[0-9][^"]*')" \
+  && ORAS_VERSION="$(curl -s https://api.github.com/repos/oras-project/oras/releases/latest | grep -o '"tag_name": *"[^"]*"' | grep -o 'v[0-9][^"]*' || echo 'v1.3.0')" \
+  && test -n "${ORAS_VERSION}" || ORAS_VERSION="v1.3.0" \
   && curl -LO "https://github.com/oras-project/oras/releases/download/${ORAS_VERSION}/oras_${ORAS_VERSION#v}_${OS}_${ARCH}.tar.gz" \
   && mkdir -p oras-install/ \
   && tar -zxf "oras_${ORAS_VERSION#v}_${OS}_${ARCH}.tar.gz" -C oras-install/ \
