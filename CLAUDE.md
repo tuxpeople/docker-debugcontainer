@@ -81,11 +81,14 @@ The container includes 60+ tools across several categories:
 - **Performance**: fio, hdparm, ioping, iozone, speedtest-cli
 - **General utilities**: bash, curl, wget, jq, yq, vim, git, screen, tmux, htop, lsof, rsync
 
-### Dynamic Tool Versions
-Some tools are installed dynamically from their latest releases:
-- **ORAS**: Installed from latest GitHub release with fallback to v1.3.0. Version stored in `/etc/oras-version` for runtime inspection.
-- **Flux**: Installed via official install script
-- **Carvel tools**: Installed via official install script
+### Pinned Tool Versions
+Key tools have pinned versions managed by Renovate:
+- **ORAS**: Version pinned via `ARG ORAS_VERSION` in Dockerfile. Version stored in `/etc/oras-version`
+- **Flux**: Version pinned via `ARG FLUX_VERSION` in Dockerfile. Version stored in `/etc/flux-version`
+- **Carvel ytt**: Version pinned via `ARG CARVEL_YTT_VERSION` in Dockerfile. Version stored in `/etc/ytt-version`
+- **Carvel imgpkg**: Version pinned via `ARG CARVEL_IMGPKG_VERSION` in Dockerfile. Version stored in `/etc/imgpkg-version`
+
+Renovate automatically creates PRs when new versions are released. All version files can be inspected at runtime in `/etc/`.
 
 ## Dockerfile Architecture
 
@@ -124,6 +127,20 @@ When adding tools that are installed from GitHub releases or external sources:
 ## Dependency Management
 
 Renovate is configured to automatically update dependencies with automerge enabled for all updates, including patch versions. The configuration ensures fast dependency updates without manual intervention.
+
+### Pinned Tool Updates via Renovate
+
+The following tools are version-pinned in the Dockerfile and automatically updated by Renovate:
+- **Flux CLI** (`fluxcd/flux2`)
+- **ORAS** (`oras-project/oras`)
+- **Carvel ytt** (`carvel-dev/ytt`)
+- **Carvel imgpkg** (`carvel-dev/imgpkg`)
+
+Renovate uses regex managers to detect version updates in the Dockerfile `ARG` statements and creates PRs with changelogs when new versions are released. This provides:
+- Clear visibility of tool version changes in git history
+- Automatic changelog generation from GitHub releases
+- Ability to review and test updates before merging
+- Reproducible builds with locked versions
 
 ## Important Notes
 
