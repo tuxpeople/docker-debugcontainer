@@ -10,7 +10,8 @@ FROM alpine:3.22.2
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
 # Labels
-LABEL org.opencontainers.image.authors="Thomas Deutsch <thomas@tuxpeople.org>"
+LABEL org.opencontainers.image.authors="Thomas Deutsch <thomas@tuxpeople.org>" \
+      org.opencontainers.image.description="Debug container with networking and troubleshooting tools"
 
 COPY scripts/* /scripts/
 COPY requirements.txt /requirements.txt
@@ -95,6 +96,7 @@ RUN chmod +x /scripts/* \
   && mv oras-install/oras /usr/local/bin/ \
   && rm -rf "oras_${ORAS_VERSION#v}_${OS}_${ARCH}.tar.gz" oras-install/ \
   && oras completion bash > /etc/bash_completion.d/oras \
+  && echo "${ORAS_VERSION}" > /etc/oras-version \
   && apk add --no-cache --virtual .build-deps musl-dev python3-dev libffi-dev openssl-dev cargo make \
   && pip install --break-system-packages --no-cache-dir --upgrade pip \
   && pip install --break-system-packages --no-cache-dir --requirement /requirements.txt \
@@ -108,6 +110,9 @@ RUN chmod +x /scripts/* \
   && rm -rf /var/cache/apk/*
 
 WORKDIR /workdir
+
+# Dynamic tool versions are stored in /etc/ for runtime inspection
+# - /etc/oras-version: ORAS CLI version
 
 # environment settings
 ENV PS1="\u@debugcontainer($(hostname)):\w\\$ " \
