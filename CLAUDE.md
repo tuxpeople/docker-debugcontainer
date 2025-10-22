@@ -33,7 +33,7 @@ docker run -it --rm debugcontainer:local /bin/bash
 
 The project uses GitHub Actions with three key workflows:
 
-1. **Pull Requests** (`.github/workflows/pullrequests.yml`): Runs Hadolint linting and builds for `linux/amd64`, `linux/arm/v7`, and `linux/arm64` platforms
+1. **Pull Requests** (`.github/workflows/pullrequests.yml`): Runs Hadolint linting and builds for `linux/amd64` and `linux/arm64` platforms
 2. **Build & Release** (`.github/workflows/release.yml`): Triggered on releases, daily cron, or pushes to master/main. Builds, tags, and pushes to both Docker Hub and GHCR
 3. **Auto-assign Issues** (`.github/workflows/auto-assign-issues.yaml`): Automatically assigns issues
 
@@ -42,6 +42,26 @@ The project uses GitHub Actions with three key workflows:
 - `nightly`: Daily automated builds via cron job
 - `devel`: Latest version from master/main branch
 - Semantic versioning: `x.y.z`, `x.y`, and `x` tags for releases
+
+### Automatic Versioning and Releases
+
+The project uses `mathieudutour/github-tag-action` to automatically create version tags and releases based on commit messages. **All commits MUST follow the Conventional Commits format:**
+
+- `feat:` - New features (triggers **minor** version bump, e.g., 1.0.0 → 1.1.0)
+- `fix:` - Bug fixes (triggers **patch** version bump, e.g., 1.0.0 → 1.0.1)
+- `chore:` - Maintenance tasks (no version bump)
+- `refactor:` - Code refactoring (no version bump)
+- `docs:` - Documentation changes (no version bump)
+- `BREAKING CHANGE:` in commit body or `feat!:`/`fix!:` - Breaking changes (triggers **major** version bump, e.g., 1.0.0 → 2.0.0)
+
+**Important**: Since `default_bump: false` is set in the workflow, commits **without** conventional commit prefixes will NOT trigger a new release. Only properly formatted commits will create new versions.
+
+**Examples:**
+```bash
+git commit -m "feat: add new debugging tool"        # Creates minor version
+git commit -m "fix: correct network configuration"  # Creates patch version
+git commit -m "chore: update dependencies"          # No new version
+```
 
 ## Repository Structure
 
@@ -55,24 +75,32 @@ The project uses GitHub Actions with three key workflows:
 The container includes 60+ tools across several categories:
 - **Networking**: tcpdump, nmap, mtr, iperf3, netcat, socat, arping, ethtool, tcptraceroute, ngrep
 - **DNS**: bind-tools, dnsperf
-- **Container/Kubernetes**: kubectl, crane (for container registry operations), flux, ytt, imgpkg (Carvel tools)
+- **Container/Kubernetes**: kubectl, crane (for container registry operations), flux, ytt, imgpkg (Carvel tools), oras (OCI registry client)
 - **Database**: mariadb-client, mssql-tools
 - **Storage**: minio-client, nfs-utils
 - **Performance**: fio, hdparm, ioping, iozone, speedtest-cli
 - **General utilities**: bash, curl, wget, jq, yq, vim, git, screen, tmux, htop, lsof, rsync
 
+### Dynamic Tool Versions
+Some tools are installed dynamically from their latest releases:
+- **ORAS**: Installed from latest GitHub release with fallback to v1.3.0. Version stored in `/etc/oras-version` for runtime inspection.
+- **Flux**: Installed via official install script
+- **Carvel tools**: Installed via official install script
+
 ## Dockerfile Architecture
 
 The Dockerfile uses a single-stage build with these key steps:
-1. Base image: Alpine 3.22.1
+1. Base image: Alpine 3.22.2
 2. Copies scripts and requirements.txt
 3. Installs all APK packages from edge repositories (main, community, testing)
 4. Installs flux CLI via shell script
 5. Installs select Carvel tools (ytt, imgpkg) while removing others (kapp, kbld, kwt, vendir)
-6. Uses virtual build dependencies for Python packages, then removes them to reduce image size
-7. Creates a non-root user `abc` (uid/gid 1000)
-8. Sets up bash completion for crane
-9. Default command: `/bin/sleep inf` (keeps container running indefinitely)
+6. Installs ORAS from latest GitHub release with error handling and fallback
+7. Sets up bash completion for crane and oras
+8. Uses virtual build dependencies for Python packages, then removes them to reduce image size
+9. Creates a non-root user `abc` (uid/gid 1000)
+10. Stores dynamic tool versions in `/etc/` for runtime inspection
+11. Default command: `/bin/sleep inf` (keeps container running indefinitely)
 
 ## Modifying Dependencies
 
@@ -85,6 +113,20 @@ Add to `requirements.txt`. Note the use of `--break-system-packages` flag since 
 ### Adding Scripts
 Place new scripts in the `scripts/` directory. They will be copied to `/scripts/` in the container and made executable.
 
+### Adding Dynamically Installed Tools
+When adding tools that are installed from GitHub releases or external sources:
+1. Add installation logic in the main RUN command (after Carvel tools, before Python packages)
+2. Use error handling with fallback versions (see ORAS installation as example)
+3. Store the installed version in `/etc/<tool>-version` for traceability
+4. Add bash completion if supported: `<tool> completion bash > /etc/bash_completion.d/<tool>`
+5. Update this CLAUDE.md file to document the new tool
+
 ## Dependency Management
 
 Renovate is configured to automatically update dependencies with automerge enabled for all updates, including patch versions. The configuration ensures fast dependency updates without manual intervention.
+
+## Important Notes
+
+- **Platform Support**: The container builds for `linux/amd64` and `linux/arm64` only. Both PR and release workflows must use identical platform lists.
+- **Bash Completion**: Tools with bash completion support should have their completions installed in `/etc/bash_completion.d/`
+- **Error Handling**: Dynamic installations from external sources should include error handling and fallback versions to prevent build failures
