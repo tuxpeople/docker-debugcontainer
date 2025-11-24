@@ -14,7 +14,7 @@ LABEL org.opencontainers.image.authors="Thomas Deutsch <thomas@tuxpeople.org>" \
       org.opencontainers.image.description="Debug container with networking and troubleshooting tools"
 
 # Tool versions (managed by Renovate)
-ARG FLUX_VERSION=2.7.3
+ARG FLUX_VERSION=2.7.4
 ARG CARVEL_YTT_VERSION=0.52.1
 ARG CARVEL_IMGPKG_VERSION=0.47.0
 ARG ORAS_VERSION=1.3.0
