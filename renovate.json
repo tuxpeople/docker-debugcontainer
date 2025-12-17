@@ -5,23 +5,24 @@
   ],
   "packageRules": [
     {
-      "matchFileNames": [
-        "**/**"
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
       ],
       "automerge": true
     },
     {
-      "description": "Automerge patch updates",
       "matchUpdateTypes": [
-        "patch"
+        "major"
       ],
-      "automerge": true,
-      "automergeType": "pr"
+      "automerge": false
     }
   ],
   "regexManagers": [
     {
-      "fileMatch": ["^Dockerfile$"],
+      "fileMatch": [
+        "^Dockerfile$"
+      ],
       "matchStrings": [
         "ARG FLUX_VERSION=(?<currentValue>.*?)\\n"
       ],
@@ -30,7 +31,9 @@
       "extractVersionTemplate": "^v?(?<version>.*)$"
     },
     {
-      "fileMatch": ["^Dockerfile$"],
+      "fileMatch": [
+        "^Dockerfile$"
+      ],
       "matchStrings": [
         "ARG CARVEL_YTT_VERSION=(?<currentValue>.*?)\\n"
       ],
@@ -39,7 +42,9 @@
       "extractVersionTemplate": "^v?(?<version>.*)$"
     },
     {
-      "fileMatch": ["^Dockerfile$"],
+      "fileMatch": [
+        "^Dockerfile$"
+      ],
       "matchStrings": [
         "ARG CARVEL_IMGPKG_VERSION=(?<currentValue>.*?)\\n"
       ],
@@ -48,7 +53,9 @@
       "extractVersionTemplate": "^v?(?<version>.*)$"
     },
     {
-      "fileMatch": ["^Dockerfile$"],
+      "fileMatch": [
+        "^Dockerfile$"
+      ],
       "matchStrings": [
         "ARG ORAS_VERSION=(?<currentValue>.*?)\\n"
       ],
@@ -56,5 +63,8 @@
       "depNameTemplate": "oras-project/oras",
       "extractVersionTemplate": "^v?(?<version>.*)$"
     }
-  ]
+  ],
+  "automerge": true,
+  "automergeType": "pr",
+  "platformAutomerge": true
 }
