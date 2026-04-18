@@ -17,7 +17,7 @@ LABEL org.opencontainers.image.authors="Thomas Deutsch <thomas@tuxpeople.org>" \
 ARG FLUX_VERSION=2.8.5
 ARG CARVEL_YTT_VERSION=0.53.2
 ARG CARVEL_IMGPKG_VERSION=0.47.2
-ARG ORAS_VERSION=1.3.1
+ARG ORAS_VERSION=1.3.2
 
 COPY scripts/* /scripts/
 COPY requirements.txt /requirements.txt
