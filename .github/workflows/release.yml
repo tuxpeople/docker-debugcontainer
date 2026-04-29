@@ -42,7 +42,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           default_bump: false
       - name: Create a GitHub release if new version
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         if: ${{ steps.tag_version.outputs.new_tag }}
         with:
           tag_name: ${{ steps.tag_version.outputs.new_tag }}
