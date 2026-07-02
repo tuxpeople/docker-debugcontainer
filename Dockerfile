@@ -23,9 +23,8 @@ ENV OC_VERSION=latest
 ENV ODO_VERSION=latest
 ENV ODO_DISABLE_TELEMETRY=true
 
-RUN wget -O /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${OC_VERSION}/openshift-client-linux.tar.gz &&     tar -xzvf /tmp/oc.tar.gz -C /usr/local/bin oc kubectl &&     rm /tmp/oc.tar.gz # buildkit
-RUN wget -O /usr/local/bin/odo https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/odo/${ODO_VERSION}/odo-linux-amd64 &&     chmod +x /usr/local/bin/odo # buildkit
-
+RUN curl -sL -o /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${OC_VERSION}/openshift-client-linux.tar.gz &&     tar -xzvf /tmp/oc.tar.gz -C /usr/local/bin oc kubectl &&     rm /tmp/oc.tar.gz # buildkit
+RUN curl -sL -o /usr/local/bin/odo https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/odo/${ODO_VERSION}/odo-linux-amd64 &&     chmod +x /usr/local/bin/odo # buildkit
 
 COPY scripts/* /scripts/
 COPY requirements.txt /requirements.txt
