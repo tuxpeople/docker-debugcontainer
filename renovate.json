@@ -12,6 +12,12 @@
       "automerge": true
     },
     {
+      "matchDatasources": [
+        "custom.openshift-ocp"
+      ],
+      "extractVersion": "^/?(?<version>\\d+\\.\\d+\\.\\d+)/?$"
+    },
+    {
       "matchUpdateTypes": [
         "major"
       ],
@@ -62,8 +68,36 @@
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "oras-project/oras",
       "extractVersionTemplate": "^v?(?<version>.*)$"
+    },
+    {
+      "fileMatch": [
+        "^Dockerfile$"
+      ],
+      "matchStrings": [
+        "ARG OC_VERSION=(?<currentValue>.*?)\\n"
+      ],
+      "datasourceTemplate": "custom.openshift-ocp",
+      "depNameTemplate": "openshift/ocp",
+      "versioningTemplate": "semver"
+    },
+    {
+      "fileMatch": [
+        "^Dockerfile$"
+      ],
+      "matchStrings": [
+        "ARG ODO_VERSION=(?<currentValue>.*?)\\n"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "redhat-developer/odo",
+      "versioningTemplate": "semver-coerced"
     }
   ],
+  "customDatasources": {
+    "openshift-ocp": {
+      "defaultRegistryUrlTemplate": "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/",
+      "format": "html"
+    }
+  },
   "automerge": true,
   "automergeType": "pr",
   "platformAutomerge": true
