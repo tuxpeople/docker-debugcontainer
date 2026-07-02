@@ -24,69 +24,51 @@
       "automerge": false
     }
   ],
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": [
-        "^Dockerfile$"
-      ],
-      "matchStrings": [
-        "ARG FLUX_VERSION=(?<currentValue>.*?)\\n"
-      ],
+      "customType": "regex",
+      "managerFilePatterns": ["/^Dockerfile$/"],
+      "matchStrings": ["ARG FLUX_VERSION=(?<currentValue>.*?)\\n"],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "fluxcd/flux2",
       "extractVersionTemplate": "^v?(?<version>.*)$"
     },
     {
-      "fileMatch": [
-        "^Dockerfile$"
-      ],
-      "matchStrings": [
-        "ARG CARVEL_YTT_VERSION=(?<currentValue>.*?)\\n"
-      ],
+      "customType": "regex",
+      "managerFilePatterns": ["/^Dockerfile$/"],
+      "matchStrings": ["ARG CARVEL_YTT_VERSION=(?<currentValue>.*?)\\n"],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "carvel-dev/ytt",
       "extractVersionTemplate": "^v?(?<version>.*)$"
     },
     {
-      "fileMatch": [
-        "^Dockerfile$"
-      ],
-      "matchStrings": [
-        "ARG CARVEL_IMGPKG_VERSION=(?<currentValue>.*?)\\n"
-      ],
+      "customType": "regex",
+      "managerFilePatterns": ["/^Dockerfile$/"],
+      "matchStrings": ["ARG CARVEL_IMGPKG_VERSION=(?<currentValue>.*?)\\n"],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "carvel-dev/imgpkg",
       "extractVersionTemplate": "^v?(?<version>.*)$"
     },
     {
-      "fileMatch": [
-        "^Dockerfile$"
-      ],
-      "matchStrings": [
-        "ARG ORAS_VERSION=(?<currentValue>.*?)\\n"
-      ],
+      "customType": "regex",
+      "managerFilePatterns": ["/^Dockerfile$/"],
+      "matchStrings": ["ARG ORAS_VERSION=(?<currentValue>.*?)\\n"],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "oras-project/oras",
       "extractVersionTemplate": "^v?(?<version>.*)$"
     },
     {
-      "fileMatch": [
-        "^Dockerfile$"
-      ],
-      "matchStrings": [
-        "ARG OC_VERSION=(?<currentValue>.*?)\\n"
-      ],
+      "customType": "regex",
+      "managerFilePatterns": ["/^Dockerfile$/"],
+      "matchStrings": ["ARG OC_VERSION=(?<currentValue>.*?)\\n"],
       "datasourceTemplate": "custom.openshift-ocp",
       "depNameTemplate": "openshift/ocp",
       "versioningTemplate": "semver"
     },
     {
-      "fileMatch": [
-        "^Dockerfile$"
-      ],
-      "matchStrings": [
-        "ARG ODO_VERSION=(?<currentValue>.*?)\\n"
-      ],
+      "customType": "regex",
+      "managerFilePatterns": ["/^Dockerfile$/"],
+      "matchStrings": ["ARG ODO_VERSION=(?<currentValue>.*?)\\n"],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "redhat-developer/odo",
       "versioningTemplate": "semver-coerced"
