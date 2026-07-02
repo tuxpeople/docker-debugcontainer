@@ -23,9 +23,6 @@ ENV OC_VERSION=latest
 ENV ODO_VERSION=latest
 ENV ODO_DISABLE_TELEMETRY=true
 
-RUN curl -sL -o /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${OC_VERSION}/openshift-client-linux.tar.gz &&     tar -xzvf /tmp/oc.tar.gz -C /usr/local/bin oc kubectl &&     rm /tmp/oc.tar.gz # buildkit
-RUN curl -sL -o /usr/local/bin/odo https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/odo/${ODO_VERSION}/odo-linux-amd64 &&     chmod +x /usr/local/bin/odo # buildkit
-
 COPY scripts/* /scripts/
 COPY requirements.txt /requirements.txt
 
@@ -101,6 +98,8 @@ RUN chmod +x /scripts/* \
   && curl -sL "https://github.com/fluxcd/flux2/releases/download/v${FLUX_VERSION}/flux_${FLUX_VERSION}_${OS}_${ARCH}.tar.gz" | tar xz -C /usr/local/bin \
   && curl -sL "https://github.com/carvel-dev/ytt/releases/download/v${CARVEL_YTT_VERSION}/ytt-${OS}-${ARCH}" -o /usr/local/bin/ytt \
   && curl -sL "https://github.com/carvel-dev/imgpkg/releases/download/v${CARVEL_IMGPKG_VERSION}/imgpkg-${OS}-${ARCH}" -o /usr/local/bin/imgpkg \
+  && curl -sL -o /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${OC_VERSION}/openshift-client-linux.tar.gz &&     tar -xzvf /tmp/oc.tar.gz -C /usr/local/bin oc kubectl &&     rm /tmp/oc.tar.gz  \
+  && curl -sL -o /usr/local/bin/odo https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/odo/${ODO_VERSION}/odo-linux-amd64 &&     chmod +x /usr/local/bin/odo  \
   && chmod +x /usr/local/bin/ytt /usr/local/bin/imgpkg \
   && curl -LO "https://github.com/oras-project/oras/releases/download/v${ORAS_VERSION}/oras_${ORAS_VERSION}_${OS}_${ARCH}.tar.gz" \
   && mkdir -p oras-install/ \
