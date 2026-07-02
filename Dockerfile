@@ -26,9 +26,6 @@ COPY requirements.txt /requirements.txt
 RUN chmod +x /scripts/* \
   && apk --update upgrade \
   && apk add --no-cache --update \
-  --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main \
-  --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
-  --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
   arping \
   bash \
   bash-completion \
@@ -38,7 +35,6 @@ RUN chmod +x /scripts/* \
   coreutils \
   curl \
   crane \
-  dnsperf \
   ethtool \
   fio \
   git \
