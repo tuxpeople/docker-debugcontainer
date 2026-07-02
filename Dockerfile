@@ -92,7 +92,7 @@ RUN apk add --no-cache --virtual .build-deps musl-dev python3-dev libffi-dev ope
   && rm -f /requirements.txt
 
 ARG OC_VERSION=4.21.20
-ARG ODO_VERSION=v3.15.0
+ARG ODO_VERSION=v3.16.1
 
 RUN OS="$(uname -s | tr A-Z a-z)" \
   && ARCH="$(uname -m | sed -e 's/x86_64/amd64/g' -e 's/aarch64/arm64/g')" \
