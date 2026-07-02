@@ -19,12 +19,8 @@ ARG CARVEL_YTT_VERSION=0.54.0
 ARG CARVEL_IMGPKG_VERSION=0.47.2
 ARG ORAS_VERSION=1.3.2
 
-COPY scripts/* /scripts/
-COPY requirements.txt /requirements.txt
-
-# hadolint ignore=DL3017,DL3018,DL3013
-RUN chmod +x /scripts/* \
-  && apk --update upgrade \
+# hadolint ignore=DL3017,DL3018
+RUN apk --update upgrade \
   && apk add --no-cache --update \
   arping \
   bash \
@@ -84,8 +80,18 @@ RUN chmod +x /scripts/* \
   vim \
   wget \
   which \
-  yq \
-  && OS="$(uname -s | tr A-Z a-z)" \
+  yq
+
+COPY requirements.txt /requirements.txt
+
+# hadolint ignore=DL3013,DL3018
+RUN apk add --no-cache --virtual .build-deps musl-dev python3-dev libffi-dev openssl-dev cargo make \
+  && pip install --break-system-packages --no-cache-dir --upgrade pip \
+  && pip install --break-system-packages --no-cache-dir --requirement /requirements.txt \
+  && apk del .build-deps \
+  && rm -f /requirements.txt
+
+RUN OS="$(uname -s | tr A-Z a-z)" \
   && ARCH="$(uname -m | sed -e 's/x86_64/amd64/g' -e 's/aarch64/arm64/g')" \
   && curl -sL "https://github.com/fluxcd/flux2/releases/download/v${FLUX_VERSION}/flux_${FLUX_VERSION}_${OS}_${ARCH}.tar.gz" | tar xz -C /usr/local/bin \
   && curl -sL "https://github.com/carvel-dev/ytt/releases/download/v${CARVEL_YTT_VERSION}/ytt-${OS}-${ARCH}" -o /usr/local/bin/ytt \
@@ -100,12 +106,11 @@ RUN chmod +x /scripts/* \
   && echo "v${ORAS_VERSION}" > /etc/oras-version \
   && echo "v${FLUX_VERSION}" > /etc/flux-version \
   && echo "v${CARVEL_YTT_VERSION}" > /etc/ytt-version \
-  && echo "v${CARVEL_IMGPKG_VERSION}" > /etc/imgpkg-version \
-  && apk add --no-cache --virtual .build-deps musl-dev python3-dev libffi-dev openssl-dev cargo make \
-  && pip install --break-system-packages --no-cache-dir --upgrade pip \
-  && pip install --break-system-packages --no-cache-dir --requirement /requirements.txt \
-  && apk del .build-deps \
-  && rm -f /requirements.txt \
+  && echo "v${CARVEL_IMGPKG_VERSION}" > /etc/imgpkg-version
+
+COPY scripts/* /scripts/
+
+RUN chmod +x /scripts/* \
   && crane completion bash > /etc/bash_completion.d/crane \
   && mkdir /workdir \
   && chmod 755 /workdir \
