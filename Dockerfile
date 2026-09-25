@@ -16,7 +16,7 @@ LABEL org.opencontainers.image.authors="Thomas Deutsch <thomas@tuxpeople.org>" \
 # Tool versions (managed by Renovate)
 ARG FLUX_VERSION=2.9.5
 ARG CARVEL_YTT_VERSION=0.55.3
-ARG CARVEL_IMGPKG_VERSION=0.48.1
+ARG CARVEL_IMGPKG_VERSION=0.48.2
 ARG ORAS_VERSION=1.3.4
 
 # hadolint ignore=DL3017,DL3018
