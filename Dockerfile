@@ -17,7 +17,7 @@ LABEL org.opencontainers.image.authors="Thomas Deutsch <thomas@tuxpeople.org>" \
 ARG FLUX_VERSION=2.9.6
 ARG CARVEL_YTT_VERSION=0.55.3
 ARG CARVEL_IMGPKG_VERSION=0.49.0
-ARG ORAS_VERSION=1.3.4
+ARG ORAS_VERSION=1.3.5
 
 # hadolint ignore=DL3017,DL3018
 RUN apk --update upgrade \
