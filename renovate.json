@@ -16,7 +16,9 @@
       "matchDatasources": [
         "custom.openshift-ocp"
       ],
-      "extractVersion": "^/?(?<version>\\d+\\.\\d+\\.\\d+)/?$"
+      "extractVersion": "^/?(?<version>\\d+\\.\\d+\\.\\d+)/?$",
+      "description": "Stay on the oc 4.x line",
+      "allowedVersions": "<5"
     },
     {
       "matchUpdateTypes": [
