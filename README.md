@@ -1,3 +1,10 @@
+> [!IMPORTANT]
+> **This repository has moved.** The image is now built in **[tuxpeople/oci-containers](https://github.com/tuxpeople/oci-containers/tree/main/images/debugcontainer)**: see the [new README](https://github.com/tuxpeople/oci-containers/blob/main/images/debugcontainer/README.md), and please open new issues [there](https://github.com/tuxpeople/oci-containers/issues).
+>
+> The image names stay the same (`tdeutsch/debugcontainer`, `ghcr.io/tuxpeople/debugcontainer`), and `latest` gets every update again (it stayed at 3.6.0 here). **4.0.0 removes `odo` and `oc`**; `kubectl` now comes from Alpine and also works on amd64. The `nightly` and `devel` tags are no longer updated.
+>
+> This repository is archived.
+
 # Debugcontainer
 
 ![Github Workflow Badge](https://github.com/tuxpeople/docker-debugcontainer/actions/workflows/release.yml/badge.svg)
